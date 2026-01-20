@@ -46,7 +46,7 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
       {/* شريط البحث */}
       <div className="flex gap-2">
         <div className="relative flex-1">
-          <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <Search className="absolute right-3 top-5 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <Input
             type="text"
             placeholder="ابحث عن سكن..."
@@ -58,7 +58,7 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
         <Button
           variant={showFilters ? "secondary" : "outline"}
           size="icon"
-          className="h-14 w-14 shrink-0"
+          className="h-10 w-14 shrink-0"
           onClick={() => setShowFilters(!showFilters)}
         >
           <SlidersHorizontal className="w-5 h-5" />
@@ -80,7 +80,7 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
                 ))}
               </SelectContent>
             </Select>
-
+{/* 
             <Select value={filters.type} onValueChange={(v) => updateFilter("type", v)}>
               <SelectTrigger className="h-12">
                 <SelectValue placeholder="نوع العرض" />
@@ -91,9 +91,9 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
                   <SelectItem key={key} value={key}>{label}</SelectItem>
                 ))}
               </SelectContent>
-            </Select>
+            </Select> */}
 
-            <Select value={filters.rooms} onValueChange={(v) => updateFilter("rooms", v)}>
+            {/* <Select value={filters.rooms} onValueChange={(v) => updateFilter("rooms", v)}>
               <SelectTrigger className="h-12">
                 <SelectValue placeholder="عدد الغرف" />
               </SelectTrigger>
@@ -104,23 +104,26 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
                 <SelectItem value="3">3 غرف</SelectItem>
                 <SelectItem value="4">4+ غرف</SelectItem>
               </SelectContent>
+            </Select> */}
+
+            <Select
+              value={filters.minPrice || filters.maxPrice ? `${filters.minPrice}-${filters.maxPrice}` : undefined}
+              onValueChange={(value) => {
+                const [min, max] = value.split("-");
+                onFiltersChange({ ...filters, minPrice: min, maxPrice: max });
+              }}
+            >
+              <SelectTrigger className="h-12">
+                <SelectValue placeholder="نطاق السعر" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="-">أي سعر</SelectItem>
+                <SelectItem value="-500">أقل من 500 ₪</SelectItem>
+                <SelectItem value="500-1000">500 - 1000 ₪</SelectItem>
+                <SelectItem value="1000-2000">1000 - 2000 ₪</SelectItem>
+                <SelectItem value="2000-">أكثر من 2000 ₪</SelectItem>
+              </SelectContent>
             </Select>
-
-            <Input
-              type="number"
-              placeholder="السعر من"
-              value={filters.minPrice}
-              onChange={(e) => updateFilter("minPrice", e.target.value)}
-              className="h-12"
-            />
-
-            <Input
-              type="number"
-              placeholder="السعر إلى"
-              value={filters.maxPrice}
-              onChange={(e) => updateFilter("maxPrice", e.target.value)}
-              className="h-12"
-            />
 
             <Select value={filters.capacity} onValueChange={(v) => updateFilter("capacity", v)}>
               <SelectTrigger className="h-12">

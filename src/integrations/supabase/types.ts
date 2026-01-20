@@ -52,6 +52,7 @@ export type Database = {
           created_at: string
           description: string | null
           id: string
+          owner_id: string | null
           price: number | null
           price_note: string | null
           rooms: number
@@ -69,6 +70,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          owner_id?: string | null
           price?: number | null
           price_note?: string | null
           rooms?: number
@@ -86,6 +88,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          owner_id?: string | null
           price?: number | null
           price_note?: string | null
           rooms?: number
@@ -95,7 +98,15 @@ export type Database = {
           utilities?: Json | null
           whatsapp_enabled?: boolean | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "listings_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       reports: {
         Row: {

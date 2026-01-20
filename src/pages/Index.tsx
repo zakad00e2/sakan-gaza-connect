@@ -118,7 +118,7 @@ export default function Index() {
         <div className="container px-4 text-center">
           <h1 className="text-3xl sm:text-4xl font-bold mb-3">سكن غزة</h1>
           <p className="text-lg opacity-90 max-w-xl mx-auto">
-            منصة لمساعدة النازحين في إيجاد سكن مناسب - إيجار أو استضافة مؤقتة
+       منصة لمساعدة النازحين في إيجاد سكن مناسب 
           </p>
         </div>
       </div>
@@ -189,7 +189,7 @@ export default function Index() {
       <footer className="bg-card border-t border-border py-6 mt-auto">
         <div className="container px-4 text-center text-sm text-muted-foreground">
           <p>سكن غزة - منصة تطوعية لمساعدة النازحين</p>
-          <p className="mt-2">نسأل الله أن يفرج عن أهلنا في غزة 🤲</p>
+          {/* <p className="mt-2">نسأل الله أن يفرج عن أهلنا في غزة 🤲</p> */}
         </div>
       </footer>
     </div>

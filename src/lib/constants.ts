@@ -28,6 +28,15 @@ export const LISTING_TYPES = {
 
 export type ListingType = keyof typeof LISTING_TYPES;
 
+// حالات الإعلان
+export const LISTING_STATUS = {
+  active: "نشط",
+  pending: "قيد المراجعة",
+  hidden: "مخفي",
+} as const;
+
+export type ListingStatus = keyof typeof LISTING_STATUS;
+
 // أسباب الإبلاغ
 export const REPORT_REASONS = [
   "إعلان وهمي أو احتيال",
@@ -67,7 +76,8 @@ export interface Listing {
   contact_name: string;
   contact_phone: string;
   whatsapp_enabled: boolean;
-  status: "active" | "pending" | "hidden";
+  status: ListingStatus;
   created_at: string;
+  owner_id: string | null;
   listing_images?: { id: string; url: string }[];
 }
