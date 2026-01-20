@@ -24,7 +24,7 @@ export default function Safety() {
       icon: CreditCard,
       title: "لا تدفع عربون مقدماً",
       description: "احذر من طلب عربون أو حجز قبل المعاينة. هذا أسلوب احتيال شائع.",
-      color: "text-destructive",
+      color: "text-primary",
     },
     {
       icon: Phone,
@@ -42,7 +42,7 @@ export default function Safety() {
       icon: AlertTriangle,
       title: "أبلغ عن المشبوهين",
       description: "إذا شككت في أي إعلان، استخدم زر الإبلاغ لتنبيهنا ومساعدة الآخرين.",
-      color: "text-warning",
+      color: "text-primary",
     },
   ];
 
@@ -145,9 +145,9 @@ export default function Safety() {
 
         {/* دعاء */}
         <div className="text-center text-muted-foreground">
-          <p className="text-sm mb-4">
+          {/* <p className="text-sm mb-4">
             نسأل الله أن يحفظ أهلنا في غزة ويفرج كربهم 🤲
-          </p>
+          </p> */}
           <Link to="/">
             <Button variant="outline">العودة للإعلانات</Button>
           </Link>
