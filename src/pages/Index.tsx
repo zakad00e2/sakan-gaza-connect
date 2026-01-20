@@ -80,7 +80,7 @@ export default function Index() {
         ...item,
         type: item.type as "rent" | "hosting",
         status: item.status as "active" | "pending" | "hidden",
-        utilities: (item.utilities as any) || { water: false, electricity: false, internet: false },
+        utilities: (item.utilities as { water: boolean; electricity: boolean; internet: boolean }) || { water: false, electricity: false, internet: false },
       }));
 
       if (isLoadMore) {
