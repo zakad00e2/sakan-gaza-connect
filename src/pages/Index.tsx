@@ -188,7 +188,9 @@ export default function Index() {
       {/* الفوتر */}
       <footer className="bg-card border-t border-border py-6 mt-auto">
         <div className="container px-4 text-center text-sm text-muted-foreground">
-          <p>سكن غزة - منصة تطوعية لمساعدة النازحين</p>
+          <p>جميع الحقوق محفوظة - سكن غزة © 2026
+
+</p>
           {/* <p className="mt-2">نسأل الله أن يفرج عن أهلنا في غزة 🤲</p> */}
         </div>
       </footer>
