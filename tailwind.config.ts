@@ -58,9 +58,9 @@ export default {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
         },
-        hosting: {
-          DEFAULT: "hsl(var(--hosting))",
-          foreground: "hsl(var(--hosting-foreground))",
+        sale: {
+          DEFAULT: "hsl(var(--sale))",
+          foreground: "hsl(var(--sale-foreground))",
         },
         rent: {
           DEFAULT: "hsl(var(--rent))",

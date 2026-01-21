@@ -106,10 +106,12 @@ export default function EditListing() {
       await updateListing(id, {
         title: formData.title,
         type: formData.type,
+        property_type: formData.property_type,
         area: formData.area,
         price: formData.price ? parseInt(formData.price) : null,
         price_note: formData.price_note || null,
-        rooms: parseInt(formData.rooms),
+        rooms: formData.property_type === "apartment" ? parseInt(formData.rooms) : null,
+        floor_area: formData.property_type !== "apartment" && formData.floor_area ? parseInt(formData.floor_area) : null,
         capacity: parseInt(formData.capacity),
         utilities,
         description: formData.description || null,

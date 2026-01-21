@@ -49,11 +49,15 @@ export default function ListingDetails() {
           return;
         }
 
+        const anyData = data as Record<string, unknown>;
         setListing({
           ...data,
-          type: data.type as "rent" | "hosting",
+          type: data.type as "rent" | "sale",
+          property_type: ((anyData.property_type as string) || "apartment") as "apartment" | "land" | "warehouse",
+          rooms: data.rooms ?? null,
+          floor_area: (anyData.floor_area as number) ?? null,
           status: data.status as "active" | "pending" | "hidden",
-          utilities: (data.utilities as any) || { water: false, electricity: false, internet: false },
+          utilities: (data.utilities as { water: boolean; electricity: boolean; internet: boolean }) || { water: false, electricity: false, internet: false },
         });
       } catch (err) {
         console.error("Error fetching listing:", err);
@@ -80,11 +84,33 @@ export default function ListingDetails() {
   };
 
   const formatWhatsApp = (phone: string) => {
-    // إزالة الأصفار والرموز وإضافة كود فلسطين
-    const cleaned = phone.replace(/\D/g, "");
-    if (cleaned.startsWith("970")) return cleaned;
-    if (cleaned.startsWith("0")) return "970" + cleaned.slice(1);
-    return "970" + cleaned;
+    // إزالة كل شيء عدا الأرقام
+    let cleaned = phone.replace(/\D/g, "");
+    
+    // إذا بدأ بـ 00 نزيلها
+    if (cleaned.startsWith("00")) {
+      cleaned = cleaned.slice(2);
+    }
+    
+    // إذا بدأ بـ 972 أو 970 نستخدم 972
+    if (cleaned.startsWith("970")) {
+      return "972" + cleaned.slice(3);
+    }
+    if (cleaned.startsWith("972")) {
+      return cleaned;
+    }
+    
+    // إذا بدأ بـ 0 (مثل 0597986160) نستبدله بـ 972
+    if (cleaned.startsWith("0")) {
+      return "972" + cleaned.slice(1);
+    }
+    
+    // إذا كان 9 أرقام نضيف 972
+    if (cleaned.length === 9) {
+      return "972" + cleaned;
+    }
+    
+    return "972" + cleaned;
   };
 
   if (loading) {
@@ -138,7 +164,7 @@ export default function ListingDetails() {
           {/* العنوان والنوع */}
           <div className="flex items-start justify-between gap-4">
             <div>
-              <span className={listing.type === "rent" ? "badge-rent" : "badge-hosting"}>
+              <span className={listing.type === "rent" ? "badge-rent" : "badge-sale"}>
                 {LISTING_TYPES[listing.type]}
               </span>
               <h1 className="text-2xl font-bold mt-2">{listing.title}</h1>
@@ -216,7 +242,7 @@ export default function ListingDetails() {
             <div className="flex flex-col sm:flex-row gap-3">
               {listing.whatsapp_enabled && (
                 <a
-                  href={`https://wa.me/${formatWhatsApp(listing.contact_phone)}?text=${encodeURIComponent("مرحباً، رأيت إعلانك على موقع سكن غزة وأريد الاستفسار عنه")}`}
+                  href={`https://api.whatsapp.com/send?phone=${formatWhatsApp(listing.contact_phone)}&text=${encodeURIComponent("مرحباً، رأيت إعلانك على موقع سكن غزة وأريد الاستفسار عنه")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="contact-whatsapp flex-1 justify-center"

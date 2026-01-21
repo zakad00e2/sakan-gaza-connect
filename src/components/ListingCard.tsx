@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { MapPin, Users, BedDouble, Droplets, Zap, Wifi } from "lucide-react";
-import { Listing, LISTING_TYPES } from "@/lib/constants";
+import { MapPin, Users, BedDouble, Droplets, Zap, Wifi, Ruler } from "lucide-react";
+import { Listing, LISTING_TYPES, PROPERTY_TYPES } from "@/lib/constants";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
 
@@ -33,10 +33,13 @@ export function ListingCard({ listing }: ListingCardProps) {
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
           loading="lazy"
         />
-        <div className="absolute top-3 right-3">
-          <span className={listing.type === "rent" ? "badge-rent" : "badge-hosting"}>
+        <div className="absolute top-3 right-3 flex gap-2">
+          <span className={listing.type === "rent" ? "badge-rent" : "badge-sale"}>
             {LISTING_TYPES[listing.type]}
           </span>
+          {/* <span className="bg-card/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium">
+            {PROPERTY_TYPES[listing.property_type]}
+          </span> */}
         </div>
       </div>
 
@@ -49,10 +52,17 @@ export function ListingCard({ listing }: ListingCardProps) {
         </div>
 
         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-          <div className="flex items-center gap-1">
-            <BedDouble className="w-4 h-4" />
-            <span>{listing.rooms} غرف</span>
-          </div>
+          {listing.property_type === "apartment" ? (
+            <div className="flex items-center gap-1">
+              <BedDouble className="w-4 h-4" />
+              <span>{listing.rooms} غرف</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1">
+              <Ruler className="w-4 h-4" />
+              <span>{listing.floor_area || "—"} م²</span>
+            </div>
+          )}
           <div className="flex items-center gap-1">
             <Users className="w-4 h-4" />
             <span>{listing.capacity} أشخاص</span>

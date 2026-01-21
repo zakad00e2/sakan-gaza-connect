@@ -1,5 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
-import { Listing, ListingStatus, Utilities } from "./constants";
+import { Listing, ListingStatus, Utilities, PropertyType } from "./constants";
 import { getCurrentUser } from "./auth";
 import { Json } from "@/integrations/supabase/types";
 
@@ -27,10 +27,12 @@ function toUtilities(json: Json | null): Utilities {
 type ListingUpdateData = {
   title?: string;
   type?: string;
+  property_type?: string;
   area?: string;
   price?: number | null;
   price_note?: string | null;
-  rooms?: number;
+  rooms?: number | null;
+  floor_area?: number | null;
   capacity?: number;
   utilities?: Json;
   description?: string | null;
@@ -45,11 +47,13 @@ type ListingUpdateData = {
 
 export interface ListingFormData {
   title: string;
-  type: "rent" | "hosting";
+  type: "rent" | "sale";
+  property_type: PropertyType;
   area: string;
   price: number | null;
   price_note: string | null;
-  rooms: number;
+  rooms: number | null;
+  floor_area: number | null;
   capacity: number;
   utilities: {
     water: boolean | string;
@@ -91,12 +95,18 @@ export async function getMyListings(): Promise<Listing[]> {
 
   if (error) throw error;
 
-  return (data || []).map((item) => ({
-    ...item,
-    type: item.type as "rent" | "hosting",
-    status: item.status as ListingStatus,
-    utilities: toUtilities(item.utilities),
-  }));
+  return (data || []).map((item) => {
+    const anyItem = item as Record<string, unknown>;
+    return {
+      ...item,
+      type: item.type as "rent" | "sale",
+      property_type: ((anyItem.property_type as string) || "apartment") as PropertyType,
+      rooms: item.rooms ?? null,
+      floor_area: (anyItem.floor_area as number) ?? null,
+      status: item.status as ListingStatus,
+      utilities: toUtilities(item.utilities),
+    };
+  });
 }
 
 /**
@@ -121,9 +131,13 @@ export async function getListingForEdit(id: string): Promise<Listing | null> {
   if (error) throw error;
   if (!data) return null;
 
+  const anyData = data as Record<string, unknown>;
   return {
     ...data,
-    type: data.type as "rent" | "hosting",
+    type: data.type as "rent" | "sale",
+    property_type: ((anyData.property_type as string) || "apartment") as PropertyType,
+    rooms: data.rooms ?? null,
+    floor_area: (anyData.floor_area as number) ?? null,
     status: data.status as ListingStatus,
     utilities: toUtilities(data.utilities),
   };
@@ -145,10 +159,12 @@ export async function createListing(
     .insert({
       title: formData.title.trim(),
       type: formData.type,
+      property_type: formData.property_type,
       area: formData.area,
       price: formData.price,
       price_note: formData.price_note?.trim() || null,
       rooms: formData.rooms,
+      floor_area: formData.floor_area,
       capacity: formData.capacity,
       utilities: formData.utilities,
       description: formData.description?.trim() || null,
@@ -163,9 +179,13 @@ export async function createListing(
 
   if (error) throw error;
 
+  const anyData = data as Record<string, unknown>;
   return {
     ...data,
-    type: data.type as "rent" | "hosting",
+    type: data.type as "rent" | "sale",
+    property_type: ((anyData.property_type as string) || "apartment") as PropertyType,
+    rooms: data.rooms ?? null,
+    floor_area: (anyData.floor_area as number) ?? null,
     status: data.status as ListingStatus,
     utilities: toUtilities(data.utilities),
   };
@@ -194,11 +214,13 @@ export async function updateListing(
   if (formData.title !== undefined)
     updateData.title = formData.title.trim();
   if (formData.type !== undefined) updateData.type = formData.type;
+  if (formData.property_type !== undefined) updateData.property_type = formData.property_type;
   if (formData.area !== undefined) updateData.area = formData.area;
   if (formData.price !== undefined) updateData.price = formData.price;
   if (formData.price_note !== undefined)
     updateData.price_note = formData.price_note?.trim() || null;
   if (formData.rooms !== undefined) updateData.rooms = formData.rooms;
+  if (formData.floor_area !== undefined) updateData.floor_area = formData.floor_area;
   if (formData.capacity !== undefined)
     updateData.capacity = formData.capacity;
   if (formData.utilities !== undefined)
@@ -222,9 +244,13 @@ export async function updateListing(
 
   if (error) throw error;
 
+  const anyData = data as Record<string, unknown>;
   return {
     ...data,
-    type: data.type as "rent" | "hosting",
+    type: data.type as "rent" | "sale",
+    property_type: ((anyData.property_type as string) || "apartment") as PropertyType,
+    rooms: data.rooms ?? null,
+    floor_area: (anyData.floor_area as number) ?? null,
     status: data.status as ListingStatus,
     utilities: toUtilities(data.utilities),
   };

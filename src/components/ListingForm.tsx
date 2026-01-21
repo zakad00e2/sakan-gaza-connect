@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { AREAS, LISTING_TYPES, UtilityKey, Listing } from "@/lib/constants";
-import { Upload, X, Loader2 } from "lucide-react";
+import { AREAS, LISTING_TYPES, PROPERTY_TYPES, UtilityKey, Listing, PropertyType } from "@/lib/constants";
+import { Upload, X, Loader2, Home, MapPin, Warehouse } from "lucide-react";
 
 // ========================================
 // أنواع البيانات
@@ -21,11 +21,13 @@ import { Upload, X, Loader2 } from "lucide-react";
 
 export interface ListingFormData {
   title: string;
-  type: "rent" | "hosting";
+  type: "rent" | "sale";
+  property_type: PropertyType;
   area: string;
   price: string;
   price_note: string;
   rooms: string;
+  floor_area: string;
   capacity: string;
   utilities: {
     water: string;
@@ -58,10 +60,12 @@ interface ListingFormProps {
 const defaultFormData: ListingFormData = {
   title: "",
   type: "rent",
+  property_type: "apartment",
   area: "",
   price: "",
   price_note: "",
   rooms: "1",
+  floor_area: "",
   capacity: "1",
   utilities: {
     water: "unavailable",
@@ -88,10 +92,12 @@ function listingToFormData(listing: Listing): ListingFormData {
   return {
     title: listing.title,
     type: listing.type,
+    property_type: listing.property_type || "apartment",
     area: listing.area,
     price: listing.price?.toString() || "",
     price_note: listing.price_note || "",
-    rooms: listing.rooms.toString(),
+    rooms: listing.rooms?.toString() || "1",
+    floor_area: listing.floor_area?.toString() || "",
     capacity: listing.capacity.toString(),
     utilities: {
       water: getUtilityValue(listing.utilities.water),
@@ -227,7 +233,7 @@ export function ListingForm({
         <RadioGroup
           value={formData.type}
           onValueChange={(v) =>
-            setFormData({ ...formData, type: v as "rent" | "hosting" })
+            setFormData({ ...formData, type: v as "rent" | "sale" })
           }
           className="flex gap-4"
         >
@@ -239,7 +245,7 @@ export function ListingForm({
                 formData.type === key
                   ? key === "rent"
                     ? "border-rent bg-rent/5"
-                    : "border-hosting bg-hosting/5"
+                    : "border-sale bg-sale/5"
                   : "border-border hover:border-muted-foreground/30"
               }`}
             >
@@ -250,12 +256,48 @@ export function ListingForm({
         </RadioGroup>
       </div>
 
+      {/* نوع العقار */}
+      <div className="space-y-3">
+        <Label className="text-base">نوع العقار</Label>
+        <RadioGroup
+          value={formData.property_type}
+          onValueChange={(v) =>
+            setFormData({ ...formData, property_type: v as PropertyType })
+          }
+          className="flex gap-3"
+        >
+          {Object.entries(PROPERTY_TYPES).map(([key, label]) => (
+            <Label
+              key={key}
+              htmlFor={`property-${key}`}
+              className={`flex-1 flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                formData.property_type === key
+                  ? "border-primary bg-primary/5"
+                  : "border-border hover:border-muted-foreground/30"
+              }`}
+            >
+              <RadioGroupItem value={key} id={`property-${key}`} className="sr-only" />
+              {key === "apartment" && <Home className="w-6 h-6" />}
+              {key === "land" && <MapPin className="w-6 h-6" />}
+              {key === "warehouse" && <Warehouse className="w-6 h-6" />}
+              <span className="font-medium text-sm">{label}</span>
+            </Label>
+          ))}
+        </RadioGroup>
+      </div>
+
       {/* العنوان */}
       <div className="space-y-2">
         <Label htmlFor="title">عنوان الإعلان *</Label>
         <Input
           id="title"
-          placeholder="مثال: شقة غرفتين في الرمال"
+          placeholder={
+            formData.property_type === "apartment" 
+              ? "مثال: شقة غرفتين في الرمال" 
+              : formData.property_type === "land"
+              ? "مثال: أرض للبيع في خان يونس"
+              : "مثال: حاصل للإيجار في دير البلح"
+          }
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           className="input-touch"
@@ -316,83 +358,161 @@ export function ListingForm({
         </div>
       </div>
 
-      {/* الغرف والسعة */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label>عدد الغرف</Label>
-          <Select
-            value={formData.rooms}
-            onValueChange={(v) => setFormData({ ...formData, rooms: v })}
-          >
-            <SelectTrigger className="input-touch">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {[1, 2, 3, 4, 5, 6].map((n) => (
-                <SelectItem key={n} value={n.toString()}>
-                  {n}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      {/* حقول حسب نوع العقار */}
+      {formData.property_type === "apartment" && (
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label>عدد الغرف</Label>
+            <Select
+              value={formData.rooms}
+              onValueChange={(v) => setFormData({ ...formData, rooms: v })}
+            >
+              <SelectTrigger className="input-touch">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[1, 2, 3, 4, 5, 6].map((n) => (
+                  <SelectItem key={n} value={n.toString()}>
+                    {n}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label>سعة الأشخاص</Label>
+            <Select
+              value={formData.capacity}
+              onValueChange={(v) => setFormData({ ...formData, capacity: v })}
+            >
+              <SelectTrigger className="input-touch">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                  <SelectItem key={n} value={n.toString()}>
+                    {n}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-        <div className="space-y-2">
-          <Label>سعة الأشخاص</Label>
-          <Select
-            value={formData.capacity}
-            onValueChange={(v) => setFormData({ ...formData, capacity: v })}
-          >
-            <SelectTrigger className="input-touch">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-                <SelectItem key={n} value={n.toString()}>
-                  {n}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+      )}
 
-      {/* المرافق */}
-      <div className="space-y-3">
-        <Label className="text-base">المرافق</Label>
-        <div className="grid grid-cols-3 gap-3">
-          {(["water", "electricity", "internet"] as UtilityKey[]).map((key) => (
-            <div key={key} className="space-y-2">
-              <Label className="text-sm text-muted-foreground">
-                {key === "water"
-                  ? "الماء"
-                  : key === "electricity"
-                  ? "الكهرباء"
-                  : "الإنترنت"}
-              </Label>
-              <Select
-                value={formData.utilities[key]}
-                onValueChange={(v) => updateUtility(key, v)}
-              >
-                <SelectTrigger className="h-12">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="available">متوفر</SelectItem>
-                  <SelectItem value="limited">محدود</SelectItem>
-                  <SelectItem value="unavailable">غير متوفر</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          ))}
+      {formData.property_type === "land" && (
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="floor_area">مساحة الأرض (متر مربع)</Label>
+            <Input
+              id="floor_area"
+              type="number"
+              placeholder="مثال: 200"
+              value={formData.floor_area}
+              onChange={(e) => setFormData({ ...formData, floor_area: e.target.value })}
+              className="input-touch"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>سعة الأشخاص</Label>
+            <Select
+              value={formData.capacity}
+              onValueChange={(v) => setFormData({ ...formData, capacity: v })}
+            >
+              <SelectTrigger className="input-touch">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                  <SelectItem key={n} value={n.toString()}>
+                    {n}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-      </div>
+      )}
+
+      {formData.property_type === "warehouse" && (
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="floor_area">مساحة الحاصل (متر مربع)</Label>
+            <Input
+              id="floor_area"
+              type="number"
+              placeholder="مثال: 50"
+              value={formData.floor_area}
+              onChange={(e) => setFormData({ ...formData, floor_area: e.target.value })}
+              className="input-touch"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="capacity">عدد الأشخاص</Label>
+            <Select
+              value={formData.capacity}
+              onValueChange={(v) => setFormData({ ...formData, capacity: v })}
+            >
+              <SelectTrigger className="input-touch">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                  <SelectItem key={n} value={n.toString()}>
+                    {n}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      )}
+
+      {/* المرافق - فقط للشقق */}
+      {formData.property_type === "apartment" && (
+        <div className="space-y-3">
+          <Label className="text-base">المرافق</Label>
+          <div className="grid grid-cols-3 gap-3">
+            {(["water", "electricity", "internet"] as UtilityKey[]).map((key) => (
+              <div key={key} className="space-y-2">
+                <Label className="text-sm text-muted-foreground">
+                  {key === "water"
+                    ? "الماء"
+                    : key === "electricity"
+                    ? "الكهرباء"
+                    : "الإنترنت"}
+                </Label>
+                <Select
+                  value={formData.utilities[key]}
+                  onValueChange={(v) => updateUtility(key, v)}
+                >
+                  <SelectTrigger className="h-12">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="available">متوفر</SelectItem>
+                    <SelectItem value="limited">محدود</SelectItem>
+                    <SelectItem value="unavailable">غير متوفر</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* الوصف */}
       <div className="space-y-2">
         <Label htmlFor="description">وصف إضافي</Label>
         <Textarea
           id="description"
-          placeholder="أضف تفاصيل عن السكن، الموقع الدقيق، المميزات..."
+          placeholder={
+            formData.property_type === "apartment"
+              ? "أضف تفاصيل عن السكن، الموقع الدقيق، المميزات..."
+              : formData.property_type === "land"
+              ? "أضف تفاصيل عن الأرض، الموقع الدقيق، طبيعة الأرض..."
+              : "أضف تفاصيل عن الحاصل، الموقع الدقيق، المميزات..."
+          }
           value={formData.description}
           onChange={(e) =>
             setFormData({ ...formData, description: e.target.value })

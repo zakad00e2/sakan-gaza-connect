@@ -20,13 +20,22 @@ export const AREAS = [
 
 export type Area = typeof AREAS[number];
 
-// أنواع العروض
+// أنواع العروض (إيجار/بيع)
 export const LISTING_TYPES = {
   rent: "إيجار",
-  hosting: "استضافة",
+  sale: "بيع",
 } as const;
 
 export type ListingType = keyof typeof LISTING_TYPES;
+
+// أنواع العقارات
+export const PROPERTY_TYPES = {
+  warehouse: "حاصل",
+  land: "أرض",
+  apartment: "شقة",
+} as const;
+
+export type PropertyType = keyof typeof PROPERTY_TYPES;
 
 // حالات الإعلان
 export const LISTING_STATUS = {
@@ -66,10 +75,12 @@ export interface Listing {
   id: string;
   title: string;
   type: ListingType;
+  property_type: PropertyType;
   area: string;
   price: number | null;
   price_note: string | null;
-  rooms: number;
+  rooms: number | null;
+  floor_area: number | null;
   capacity: number;
   utilities: Utilities;
   description: string | null;

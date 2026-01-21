@@ -61,12 +61,42 @@ export async function signUp({ email, password, fullName }: SignUpData) {
 }
 
 /**
- * تسجيل الدخول
+ * تسجيل الدخول بكلمة المرور
  */
 export async function signIn({ email, password }: SignInData) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
+  });
+
+  if (error) throw error;
+  return data;
+}
+
+/**
+ * تسجيل الدخول بـ Magic Link
+ */
+export async function signInWithMagicLink(email: string, redirectTo?: string) {
+  const { data, error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: redirectTo || `${window.location.origin}/`,
+    },
+  });
+
+  if (error) throw error;
+  return data;
+}
+
+/**
+ * تسجيل الدخول عبر Google
+ */
+export async function signInWithGoogle(redirectTo?: string) {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: redirectTo || `${window.location.origin}/`,
+    },
   });
 
   if (error) throw error;

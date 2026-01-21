@@ -112,7 +112,7 @@ export function Header() {
         <div className="sm:hidden">
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="sm" className="h-10 w-10 p-0">
+              <Button variant="outline" size="sm" className="h-10 w-10 p-0 border-primary/20">
                 <Menu className="w-5 h-5" />
               </Button>
             </SheetTrigger>
@@ -123,7 +123,7 @@ export function Header() {
               
               <nav className="flex flex-col gap-2 mt-6">
                  <Link to="/add" onClick={closeMobileMenu}>
-                  <Button className="w-full justify-start gap-2 h-12">
+                  <Button variant="ghost" className="w-full justify-start gap-2 h-12">
                     <Plus className="w-5 h-5" />
                     أضف إعلان
                   </Button>
@@ -162,7 +162,7 @@ export function Header() {
                       <>
                         <div className="border-t border-border my-2" />
                         <Link to="/login" onClick={closeMobileMenu}>
-                          <Button variant="outline" className="w-full justify-start gap-2 h-12">
+                          <Button variant="ghost" className="w-full justify-start gap-2 h-12">
                             <User className="w-5 h-5" />
                             تسجيل الدخول
                           </Button>

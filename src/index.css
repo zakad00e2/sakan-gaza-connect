@@ -51,8 +51,8 @@
     --success-foreground: 0 0% 100%;
     --warning: 40 90% 50%;
     --warning-foreground: 30 10% 15%;
-    --hosting: 200 70% 45%;
-    --hosting-foreground: 0 0% 100%;
+    --sale: 0 70% 50%;
+    --sale-foreground: 0 0% 100%;
     --rent: 85 35% 35%;
     --rent-foreground: 0 0% 100%;
   }
@@ -117,8 +117,8 @@
     @apply bg-rent text-rent-foreground px-3 py-1 rounded-full text-sm font-medium;
   }
 
-  .badge-hosting {
-    @apply bg-hosting text-hosting-foreground px-3 py-1 rounded-full text-sm font-medium;
+  .badge-sale {
+    @apply bg-sale text-sale-foreground px-3 py-1 rounded-full text-sm font-medium;
   }
 
   /* بطاقة الإعلان */

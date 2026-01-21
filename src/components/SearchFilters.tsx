@@ -3,12 +3,13 @@ import { Search, SlidersHorizontal, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AREAS, LISTING_TYPES } from "@/lib/constants";
+import { AREAS, LISTING_TYPES, PROPERTY_TYPES } from "@/lib/constants";
 
 export interface Filters {
   search: string;
   area: string;
   type: string;
+  propertyType: string;
   minPrice: string;
   maxPrice: string;
   rooms: string;
@@ -32,6 +33,7 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
       search: "",
       area: "",
       type: "",
+      propertyType: "",
       minPrice: "",
       maxPrice: "",
       rooms: "",
@@ -80,7 +82,19 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
                 ))}
               </SelectContent>
             </Select>
-{/* 
+
+            <Select value={filters.propertyType} onValueChange={(v) => updateFilter("propertyType", v)}>
+              <SelectTrigger className="h-12">
+                <SelectValue placeholder="نوع العقار" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">كل الأنواع</SelectItem>
+                {Object.entries(PROPERTY_TYPES).map(([key, label]) => (
+                  <SelectItem key={key} value={key}>{label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
             <Select value={filters.type} onValueChange={(v) => updateFilter("type", v)}>
               <SelectTrigger className="h-12">
                 <SelectValue placeholder="نوع العرض" />
@@ -91,20 +105,7 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
                   <SelectItem key={key} value={key}>{label}</SelectItem>
                 ))}
               </SelectContent>
-            </Select> */}
-
-            {/* <Select value={filters.rooms} onValueChange={(v) => updateFilter("rooms", v)}>
-              <SelectTrigger className="h-12">
-                <SelectValue placeholder="عدد الغرف" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">أي عدد</SelectItem>
-                <SelectItem value="1">غرفة واحدة</SelectItem>
-                <SelectItem value="2">غرفتين</SelectItem>
-                <SelectItem value="3">3 غرف</SelectItem>
-                <SelectItem value="4">4+ غرف</SelectItem>
-              </SelectContent>
-            </Select> */}
+            </Select>
 
             <Select
               value={filters.minPrice || filters.maxPrice ? `${filters.minPrice}-${filters.maxPrice}` : undefined}

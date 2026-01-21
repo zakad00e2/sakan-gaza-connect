@@ -20,6 +20,7 @@ export default function Index() {
     search: "",
     area: "",
     type: "",
+    propertyType: "",
     minPrice: "",
     maxPrice: "",
     rooms: "",
@@ -54,6 +55,9 @@ export default function Index() {
       if (filters.type && filters.type !== "all") {
         query = query.eq("type", filters.type);
       }
+      if (filters.propertyType && filters.propertyType !== "all") {
+        query = query.eq("property_type", filters.propertyType);
+      }
       if (filters.minPrice) {
         query = query.gte("price", parseInt(filters.minPrice));
       }
@@ -76,12 +80,18 @@ export default function Index() {
 
       if (error) throw error;
 
-      const formattedData = (data || []).map(item => ({
-        ...item,
-        type: item.type as "rent" | "hosting",
-        status: item.status as "active" | "pending" | "hidden",
-        utilities: (item.utilities as { water: boolean; electricity: boolean; internet: boolean }) || { water: false, electricity: false, internet: false },
-      }));
+      const formattedData: Listing[] = (data || []).map(item => {
+        const anyItem = item as Record<string, unknown>;
+        return {
+          ...item,
+          type: item.type as "rent" | "sale",
+          property_type: ((anyItem.property_type as string) || "apartment") as "apartment" | "land" | "warehouse",
+          rooms: item.rooms ?? null,
+          floor_area: (anyItem.floor_area as number) ?? null,
+          status: item.status as "active" | "pending" | "hidden",
+          utilities: (item.utilities as { water: boolean; electricity: boolean; internet: boolean }) || { water: false, electricity: false, internet: false },
+        };
+      });
 
       if (isLoadMore) {
         setListings((prev) => [...prev, ...formattedData]);

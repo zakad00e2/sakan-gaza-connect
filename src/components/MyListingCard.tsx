@@ -80,7 +80,7 @@ export function MyListingCard({
         {/* Badge النوع */}
         <span
           className={`absolute top-3 right-3 ${
-            listing.type === "rent" ? "badge-rent" : "badge-hosting"
+            listing.type === "rent" ? "badge-rent" : "badge-sale"
           }`}
         >
           {LISTING_TYPES[listing.type]}
