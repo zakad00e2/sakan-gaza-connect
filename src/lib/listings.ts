@@ -319,6 +319,56 @@ export async function deleteListing(id: string): Promise<void> {
 }
 
 /**
+ * ضغط الصورة قبل الرفع
+ */
+async function compressImage(file: File, maxWidth = 1200, quality = 0.8): Promise<File> {
+  return new Promise((resolve) => {
+    // إذا كانت الصورة صغيرة أصلاً، لا داعي للضغط
+    if (file.size < 500 * 1024) { // أقل من 500KB
+      resolve(file);
+      return;
+    }
+
+    const img = new Image();
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    img.onload = () => {
+      let { width, height } = img;
+
+      // تصغير الأبعاد إذا كانت كبيرة
+      if (width > maxWidth) {
+        height = (height * maxWidth) / width;
+        width = maxWidth;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      ctx?.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const compressedFile = new File([blob], file.name, {
+              type: "image/jpeg",
+              lastModified: Date.now(),
+            });
+            resolve(compressedFile);
+          } else {
+            resolve(file);
+          }
+        },
+        "image/jpeg",
+        quality
+      );
+    };
+
+    img.onerror = () => resolve(file);
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+/**
  * رفع صورة للإعلان
  */
 export async function uploadListingImage(
@@ -330,12 +380,15 @@ export async function uploadListingImage(
     throw new Error("يجب تسجيل الدخول");
   }
 
-  const fileExt = file.name.split(".").pop();
+  // ضغط الصورة قبل الرفع
+  const compressedFile = await compressImage(file);
+
+  const fileExt = "jpg"; // دائماً نحفظ بصيغة jpg بعد الضغط
   const fileName = `${listingId}/${Date.now()}.${fileExt}`;
 
   const { error: uploadError } = await supabase.storage
     .from("listings")
-    .upload(fileName, file);
+    .upload(fileName, compressedFile);
 
   if (uploadError) throw uploadError;
 

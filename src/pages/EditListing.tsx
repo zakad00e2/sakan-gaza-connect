@@ -120,28 +120,26 @@ export default function EditListing() {
         whatsapp_enabled: formData.whatsapp_enabled,
       });
 
-      // حذف الصور المحذوفة
-      for (const imageId of deletedImageIds) {
+      // حذف الصور المحذوفة ورفع الجديدة بشكل متوازي
+      const deletePromises = deletedImageIds.map((imageId) => {
         const imageToDelete = listing.listing_images?.find(
           (img) => img.id === imageId
         );
         if (imageToDelete) {
-          try {
-            await deleteListingImage(imageId, imageToDelete.url);
-          } catch (err) {
+          return deleteListingImage(imageId, imageToDelete.url).catch((err) => {
             console.error("Error deleting image:", err);
-          }
+          });
         }
-      }
+        return Promise.resolve();
+      });
 
-      // رفع الصور الجديدة
-      for (const file of newImages) {
-        try {
-          await uploadListingImage(id, file);
-        } catch (err) {
+      const uploadPromises = newImages.map((file) =>
+        uploadListingImage(id, file).catch((err) => {
           console.error("Error uploading image:", err);
-        }
-      }
+        })
+      );
+
+      await Promise.all([...deletePromises, ...uploadPromises]);
 
       toast({ title: "تم تحديث الإعلان بنجاح" });
       navigate("/my");

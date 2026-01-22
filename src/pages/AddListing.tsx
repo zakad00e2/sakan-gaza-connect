@@ -78,13 +78,15 @@ export default function AddListing() {
         whatsapp_enabled: formData.whatsapp_enabled,
       });
 
-      // رفع الصور إن وجدت
-      for (const file of newImages) {
-        try {
-          await uploadListingImage(listing.id, file);
-        } catch (err) {
-          console.error("Error uploading image:", err);
-        }
+      // رفع الصور بشكل متوازي لتسريع العملية
+      if (newImages.length > 0) {
+        await Promise.all(
+          newImages.map((file) =>
+            uploadListingImage(listing.id, file).catch((err) => {
+              console.error("Error uploading image:", err);
+            })
+          )
+        );
       }
 
       setIsSuccess(true);
