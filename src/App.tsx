@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyListings from "./pages/MyListings";
 import EditListing from "./pages/EditListing";
+import AuthCallback from "./pages/AuthCallback";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/safety" element={<Safety />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/my" element={<MyListings />} />
             <Route path="/my/edit/:id" element={<EditListing />} />
             <Route path="*" element={<NotFound />} />

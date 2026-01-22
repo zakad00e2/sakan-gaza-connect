@@ -77,10 +77,15 @@ export async function signIn({ email, password }: SignInData) {
  * تسجيل الدخول بـ Magic Link
  */
 export async function signInWithMagicLink(email: string, redirectTo?: string) {
+  // حفظ الصفحة المطلوبة للتوجيه إليها بعد تسجيل الدخول
+  if (redirectTo) {
+    localStorage.setItem("auth_redirect", redirectTo);
+  }
+  
   const { data, error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: redirectTo || `${window.location.origin}/`,
+      emailRedirectTo: `${window.location.origin}/auth/callback`,
     },
   });
 
@@ -92,10 +97,15 @@ export async function signInWithMagicLink(email: string, redirectTo?: string) {
  * تسجيل الدخول عبر Google
  */
 export async function signInWithGoogle(redirectTo?: string) {
+  // حفظ الصفحة المطلوبة للتوجيه إليها بعد تسجيل الدخول
+  if (redirectTo) {
+    localStorage.setItem("auth_redirect", redirectTo);
+  }
+  
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: redirectTo || `${window.location.origin}/`,
+      redirectTo: `${window.location.origin}/auth/callback`,
     },
   });
 

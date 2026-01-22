@@ -18,7 +18,6 @@ export default function Login() {
   const [magicLinkSent, setMagicLinkSent] = useState(false);
 
   const nextUrl = searchParams.get("next") || "/";
-  const redirectUrl = `${window.location.origin}${nextUrl}`;
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +30,7 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      await signInWithMagicLink(email.trim(), redirectUrl);
+      await signInWithMagicLink(email.trim(), nextUrl);
       setMagicLinkSent(true);
       toast({ title: "تم إرسال رابط الدخول إلى بريدك الإلكتروني" });
     } catch (error: unknown) {
@@ -49,7 +48,7 @@ export default function Login() {
   const handleGoogleLogin = async () => {
     setIsGoogleLoading(true);
     try {
-      await signInWithGoogle(redirectUrl);
+      await signInWithGoogle(nextUrl);
     } catch (error: unknown) {
       console.error("Google login error:", error);
       const err = error as { message?: string };
