@@ -14,6 +14,7 @@ import MyListings from "./pages/MyListings";
 import EditListing from "./pages/EditListing";
 import AuthCallback from "./pages/AuthCallback";
 import NotFound from "./pages/NotFound";
+import AdminReports from "./pages/AdminReports";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/my" element={<MyListings />} />
             <Route path="/my/edit/:id" element={<EditListing />} />
+            <Route path="/admin/reports" element={<AdminReports />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

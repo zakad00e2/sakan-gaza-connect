@@ -90,11 +90,11 @@ export default function AddListing() {
       }
 
       setIsSuccess(true);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error creating listing:", error);
       toast({
         title: "حدث خطأ",
-        description: error?.message || "يرجى المحاولة مرة أخرى",
+        description: error instanceof Error ? error.message : "يرجى المحاولة مرة أخرى",
         variant: "destructive",
       });
     } finally {

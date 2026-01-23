@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Home, Plus, Shield, User, LogOut, List, Menu, X } from "lucide-react";
+import { Home, Plus, Shield, User, LogOut, List, Menu, X, Flag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,9 +17,11 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/use-auth";
+import { useIsAdmin } from "@/hooks/use-is-admin";
 
 export function Header() {
   const { user, loading, signOut } = useAuth();
+  const { isAdmin } = useIsAdmin();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
@@ -77,6 +79,14 @@ export function Header() {
                           إعلاناتي
                         </Link>
                       </DropdownMenuItem>
+                      {isAdmin && (
+                        <DropdownMenuItem asChild>
+                          <Link to="/admin/reports" className="flex items-center gap-2 cursor-pointer">
+                            <Flag className="w-4 h-4" />
+                            البلاغات
+                          </Link>
+                        </DropdownMenuItem>
+                      )}
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         onClick={handleSignOut}
@@ -149,6 +159,14 @@ export function Header() {
                             إعلاناتي
                           </Button>
                         </Link>
+                        {isAdmin && (
+                          <Link to="/admin/reports" onClick={closeMobileMenu}>
+                            <Button variant="ghost" className="w-full justify-start gap-2 h-12">
+                              <Flag className="w-5 h-5" />
+                              البلاغات
+                            </Button>
+                          </Link>
+                        )}
                         <Button
                           variant="ghost"
                           onClick={handleSignOut}
