@@ -23,6 +23,7 @@ export function Header() {
   const { user, loading, signOut } = useAuth();
   const { isAdmin } = useIsAdmin();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleSignOut = async () => {
     try {
@@ -65,15 +66,26 @@ export function Header() {
               نصائح الأمان
             </Button>
           </Link>
-                  <DropdownMenu>
+                  <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm" className="gap-1 h-10">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="gap-1 h-10"
+                        onMouseEnter={() => setDropdownOpen(true)}
+                        onMouseLeave={() => setDropdownOpen(false)}
+                      >
                         <User className="w-4 h-4" />
                         حسابي
                         <ChevronDown className="w-3 h-3" />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuContent 
+                      align="end" 
+                      className="w-48"
+                      onMouseEnter={() => setDropdownOpen(true)}
+                      onMouseLeave={() => setDropdownOpen(false)}
+                    >
                       <DropdownMenuItem asChild>
                         <Link to="/my" className="flex items-center gap-2 cursor-pointer">
                           <List className="w-4 h-4" />
