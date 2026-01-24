@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Home, Plus, Shield, User, LogOut, List, Menu, X, Flag } from "lucide-react";
+import { Home, Plus, Shield, User, LogOut, List, Menu, X, Flag, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -47,12 +47,7 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden sm:flex items-center gap-2">
-          <Link to="/safety">
-            <Button variant="ghost" size="sm" className="gap-1">
-              <Shield className="w-4 h-4" />
-              نصائح الأمان
-            </Button>
-          </Link>
+        
 
           {!loading && (
             <>
@@ -64,12 +59,18 @@ export function Header() {
                       أضف إعلان
                     </Button>
                   </Link>
-
+                    <Link to="/safety">
+            <Button variant="ghost" size="sm" className="gap-1">
+              <Shield className="w-4 h-4" />
+              نصائح الأمان
+            </Button>
+          </Link>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm" className="gap-1 h-10">
+                      <Button variant="ghost" size="sm" className="gap-1 h-10">
                         <User className="w-4 h-4" />
                         حسابي
+                        <ChevronDown className="w-3 h-3" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-48">
@@ -185,12 +186,12 @@ export function Header() {
                             تسجيل الدخول
                           </Button>
                         </Link>
-                        <Link to="/signup" onClick={closeMobileMenu}>
+                        {/* <Link to="/signup" onClick={closeMobileMenu}>
                           <Button variant="ghost" className="w-full justify-start gap-2 h-12">
                             <User className="w-5 h-5" />
                             إنشاء حساب
                           </Button>
-                        </Link>
+                        </Link> */}
                       </>
                     )}
                   </>
