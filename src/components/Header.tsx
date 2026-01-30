@@ -121,29 +121,36 @@ export function Header() {
                 </>
               ) : (
                 <>
-                  <Link to="/login">
-                    <Button variant="ghost" size="sm" className="gap-1 h-10">
-                      <User className="w-4 h-4" />
-                      دخول
-                    </Button>
-                  </Link>
                   <Link to="/add">
                     <Button size="sm" className="gap-1 btn-touch h-10">
                       <Plus className="w-4 h-4" />
                       أضف إعلان
                     </Button>
                   </Link>
+                  <Link to="/login">
+                    <Button variant="ghost" size="sm" className="gap-1 h-10">
+                      <User className="w-4 h-4" />
+                      دخول
+                    </Button>
+                  </Link>
+                
                 </>
               )}
             </>
           )}
         </nav>
 
-        {/* Mobile Navigation */}
-        <div className="sm:hidden">
+        {/* Mobile Navigation: زر إضافة إعلان بجانب زر القائمة */}
+        <div className="sm:hidden flex items-center gap-2">
+          <Link to="/add">
+            <Button size="sm" className="gap-1 btn-touch h-10">
+              <Plus className="w-4 h-4" />
+              أضف إعلان
+            </Button>
+          </Link>
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="sm" className="h-10 w-10 p-0 border-primary/20">
+              <Button variant="outline" size="sm" className="h-10 w-10 p-0 border-primary/20 shrink-0">
                 <Menu className="w-5 h-5" />
               </Button>
             </SheetTrigger>
