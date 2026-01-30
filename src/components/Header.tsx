@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Home, Plus, Shield, User, LogOut, List, Menu, X, Flag, ChevronDown } from "lucide-react";
+import { Home, Plus, Shield, User, LogOut, List, Menu, Flag, ChevronDown, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -93,12 +93,20 @@ export function Header() {
                         </Link>
                       </DropdownMenuItem>
                       {isAdmin && (
-                        <DropdownMenuItem asChild>
-                          <Link to="/admin/reports" className="flex items-center gap-2 cursor-pointer">
-                            <Flag className="w-4 h-4" />
-                            البلاغات
-                          </Link>
-                        </DropdownMenuItem>
+                        <>
+                          <DropdownMenuItem asChild>
+                            <Link to="/admin/pending" className="flex items-center gap-2 cursor-pointer">
+                              <ClipboardCheck className="w-4 h-4" />
+                              إعلانات المراجعة
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link to="/admin/reports" className="flex items-center gap-2 cursor-pointer">
+                              <Flag className="w-4 h-4" />
+                              البلاغات
+                            </Link>
+                          </DropdownMenuItem>
+                        </>
                       )}
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
@@ -173,12 +181,20 @@ export function Header() {
                           </Button>
                         </Link>
                         {isAdmin && (
-                          <Link to="/admin/reports" onClick={closeMobileMenu}>
-                            <Button variant="ghost" className="w-full justify-start gap-2 h-12">
-                              <Flag className="w-5 h-5" />
-                              البلاغات
-                            </Button>
-                          </Link>
+                          <>
+                            <Link to="/admin/pending" onClick={closeMobileMenu}>
+                              <Button variant="ghost" className="w-full justify-start gap-2 h-12">
+                                <ClipboardCheck className="w-5 h-5" />
+                                إعلانات المراجعة
+                              </Button>
+                            </Link>
+                            <Link to="/admin/reports" onClick={closeMobileMenu}>
+                              <Button variant="ghost" className="w-full justify-start gap-2 h-12">
+                                <Flag className="w-5 h-5" />
+                                البلاغات
+                              </Button>
+                            </Link>
+                          </>
                         )}
                         <Button
                           variant="ghost"

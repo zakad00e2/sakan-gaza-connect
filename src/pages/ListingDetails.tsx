@@ -183,7 +183,7 @@ export default function ListingDetails() {
           {/* المعلومات الأساسية */}
           <div className="bg-card rounded-xl p-4 border border-border">
             <div className="grid grid-cols-2 gap-4">
-              {listing.property_type === "apartment" ? (
+              {listing.property_type === "apartment" && listing.rooms != null ? (
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                     <BedDouble className="w-5 h-5 text-primary" />
@@ -193,7 +193,7 @@ export default function ListingDetails() {
                     <p className="font-bold">{listing.rooms}</p>
                   </div>
                 </div>
-              ) : (
+              ) : listing.property_type !== "apartment" ? (
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                     <Ruler className="w-5 h-5 text-primary" />
@@ -203,7 +203,7 @@ export default function ListingDetails() {
                     <p className="font-bold">{listing.floor_area || "—"} م²</p>
                   </div>
                 </div>
-              )}
+              ) : null}
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Users className="w-5 h-5 text-primary" />

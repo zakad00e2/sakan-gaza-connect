@@ -68,7 +68,10 @@ export default function AddListing() {
         area: formData.area,
         price: formData.price ? parseInt(formData.price) : null,
         price_note: formData.price_note || null,
-        rooms: formData.property_type === "apartment" ? parseInt(formData.rooms) : null,
+        rooms:
+          formData.property_type === "apartment" && formData.rooms
+            ? parseInt(formData.rooms)
+            : null,
         floor_area: formData.property_type !== "apartment" && formData.floor_area ? parseInt(formData.floor_area) : null,
         capacity: parseInt(formData.capacity),
         utilities,
@@ -133,9 +136,9 @@ export default function AddListing() {
           <div className="w-20 h-20 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="w-10 h-10 text-success" />
           </div>
-          <h1 className="text-2xl font-bold mb-3">تم نشر إعلانك بنجاح!</h1>
+          <h1 className="text-2xl font-bold mb-3">تم إرسال إعلانك بنجاح!</h1>
           <p className="text-muted-foreground mb-8">
-            إعلانك متاح الآن للجميع. نتمنى أن تجد من يحتاج لهذا السكن قريباً.
+            إعلانك قيد المراجعة. سيظهر في الموقع بعد موافقة الإدارة. يمكنك متابعة حالته من صفحة إعلاناتي.
           </p>
           <div className="flex flex-col gap-3">
             <Link to="/">

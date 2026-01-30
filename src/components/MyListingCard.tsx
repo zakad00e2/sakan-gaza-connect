@@ -103,10 +103,12 @@ export function MyListingCard({
             <MapPin className="w-4 h-4" />
             {listing.area}
           </span>
-          <span className="flex items-center gap-1">
-            <BedDouble className="w-4 h-4" />
-            {listing.rooms} غرف
-          </span>
+          {listing.rooms != null && (
+            <span className="flex items-center gap-1">
+              <BedDouble className="w-4 h-4" />
+              {listing.rooms} غرف
+            </span>
+          )}
           <span className="flex items-center gap-1">
             <Users className="w-4 h-4" />
             {listing.capacity} أشخاص

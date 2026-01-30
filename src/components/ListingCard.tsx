@@ -52,17 +52,17 @@ export function ListingCard({ listing }: ListingCardProps) {
         </div>
 
         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-          {listing.property_type === "apartment" ? (
+          {listing.property_type === "apartment" && listing.rooms != null ? (
             <div className="flex items-center gap-1">
               <BedDouble className="w-4 h-4" />
               <span>{listing.rooms} غرف</span>
             </div>
-          ) : (
+          ) : listing.property_type !== "apartment" ? (
             <div className="flex items-center gap-1">
               <Ruler className="w-4 h-4" />
               <span>{listing.floor_area || "—"} م²</span>
             </div>
-          )}
+          ) : null}
           <div className="flex items-center gap-1">
             <Users className="w-4 h-4" />
             <span>{listing.capacity} أشخاص</span>

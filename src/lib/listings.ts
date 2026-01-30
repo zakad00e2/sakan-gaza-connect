@@ -52,7 +52,7 @@ export interface ListingFormData {
   area: string;
   price: number | null;
   price_note: string | null;
-  rooms: number | null;
+  rooms?: number | null;
   floor_area: number | null;
   capacity: number;
   utilities: {
@@ -163,7 +163,7 @@ export async function createListing(
       area: formData.area,
       price: formData.price,
       price_note: formData.price_note?.trim() || null,
-      rooms: formData.rooms,
+      rooms: formData.rooms ?? null,
       floor_area: formData.floor_area,
       capacity: formData.capacity,
       utilities: formData.utilities,
@@ -171,7 +171,7 @@ export async function createListing(
       contact_name: formData.contact_name.trim(),
       contact_phone: formData.contact_phone.trim(),
       whatsapp_enabled: formData.whatsapp_enabled,
-      status: "active", // أو "pending" إذا أردت مراجعة
+      status: "pending", // قيد المراجعة حتى يوافق المشرف
       owner_id: user.id,
     })
     .select()
@@ -275,6 +275,57 @@ export async function updateListingStatus(
     .eq("owner_id", user.id);
 
   if (error) throw error;
+}
+
+/**
+ * موافقة المشرف على إعلان (للمشرفين فقط - تتحكم RLS)
+ */
+export async function approveListing(id: string): Promise<void> {
+  const { error } = await supabase
+    .from("listings")
+    .update({ status: "active" })
+    .eq("id", id);
+  if (error) throw error;
+}
+
+/**
+ * رفض إعلان من المشرف (للمشرفين فقط - تتحكم RLS)
+ */
+export async function rejectListing(id: string): Promise<void> {
+  const { error } = await supabase
+    .from("listings")
+    .update({ status: "hidden" })
+    .eq("id", id);
+  if (error) throw error;
+}
+
+/**
+ * جلب الإعلانات المعلقة (قيد المراجعة) - للمشرفين فقط
+ */
+export async function getPendingListings(): Promise<Listing[]> {
+  const { data, error } = await supabase
+    .from("listings")
+    .select(`
+      *,
+      listing_images (id, url)
+    `)
+    .eq("status", "pending")
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+
+  return (data || []).map((item) => {
+    const anyItem = item as Record<string, unknown>;
+    return {
+      ...item,
+      type: item.type as "rent" | "sale",
+      property_type: ((anyItem.property_type as string) || "apartment") as PropertyType,
+      rooms: item.rooms ?? null,
+      floor_area: (item.floor_area as number) ?? null,
+      status: item.status as ListingStatus,
+      utilities: toUtilities(item.utilities),
+    };
+  });
 }
 
 /**

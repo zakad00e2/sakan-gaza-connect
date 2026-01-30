@@ -64,7 +64,7 @@ const defaultFormData: ListingFormData = {
   area: "",
   price: "",
   price_note: "",
-  rooms: "1",
+  rooms: "",
   floor_area: "",
   capacity: "1",
   utilities: {
@@ -96,7 +96,7 @@ function listingToFormData(listing: Listing): ListingFormData {
     area: listing.area,
     price: listing.price?.toString() || "",
     price_note: listing.price_note || "",
-    rooms: listing.rooms?.toString() || "1",
+    rooms: listing.rooms?.toString() || "",
     floor_area: listing.floor_area?.toString() || "",
     capacity: listing.capacity.toString(),
     utilities: {
@@ -194,6 +194,9 @@ export function ListingForm({
     }
     if (!formData.area) {
       newErrors.area = "يرجى اختيار المنطقة";
+    }
+    if (formData.property_type === "apartment" && !formData.rooms) {
+      newErrors.rooms = "يرجى تحديد عدد الغرف";
     }
     if (!formData.contact_name.trim()) {
       newErrors.contact_name = "يرجى إدخال اسم التواصل";
@@ -362,22 +365,25 @@ export function ListingForm({
       {formData.property_type === "apartment" && (
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label>عدد الغرف</Label>
+            <Label>عدد الغرف *</Label>
             <Select
               value={formData.rooms}
               onValueChange={(v) => setFormData({ ...formData, rooms: v })}
             >
               <SelectTrigger className="input-touch">
-                <SelectValue />
+                <SelectValue placeholder="اختر عدد الغرف" />
               </SelectTrigger>
               <SelectContent>
-                {[1, 2, 3, 4, 5, 6].map((n) => (
+                {[1, 2, 3, 4].map((n) => (
                   <SelectItem key={n} value={n.toString()}>
-                    {n}
+                    {n === 4 ? "4 غرف أو أكثر" : `${n} غرفة`}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
+            {errors.rooms && (
+              <p className="text-sm text-destructive">{errors.rooms}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label>سعة الأشخاص</Label>
@@ -468,8 +474,8 @@ export function ListingForm({
         </div>
       )}
 
-      {/* المرافق - فقط للشقق */}
-      {formData.property_type === "apartment" && (
+      {/* المرافق */}
+      {formData.property_type && (
         <div className="space-y-3">
           <Label className="text-base">المرافق</Label>
           <div className="grid grid-cols-3 gap-3">
