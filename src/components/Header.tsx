@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Home, Plus, Shield, User, LogOut, List, Menu, Flag, ChevronDown, ClipboardCheck } from "lucide-react";
+import { Home, Plus, Shield, User, LogOut, List, Menu, Flag, ChevronDown, ClipboardCheck, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -37,10 +37,10 @@ export function Header() {
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">
+    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border" role="banner">
       <div className="container flex items-center justify-between h-14 sm:h-16 px-4">
-        <Link to="/" className="flex items-center gap-1.5 sm:gap-2">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-primary flex items-center justify-center">
+        <Link to="/" className="flex items-center gap-1.5 sm:gap-2" aria-label="سكن غزة - الصفحة الرئيسية">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-primary flex items-center justify-center" aria-hidden="true">
             <Home className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
           </div>
           <span className="text-lg sm:text-xl font-bold text-primary">سكن غزة</span>
@@ -48,7 +48,8 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden sm:flex items-center gap-2">
-        
+          
+       
 
           {!loading && (
             <>
@@ -60,12 +61,7 @@ export function Header() {
                       أضف إعلان
                     </Button>
                   </Link>
-                    <Link to="/safety">
-            <Button variant="ghost" size="sm" className="gap-1">
-              <Shield className="w-4 h-4" />
-              نصائح الأمان
-            </Button>
-          </Link>
+                  
                   <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
                     <DropdownMenuTrigger asChild>
                       <Button 
@@ -127,6 +123,12 @@ export function Header() {
                       أضف إعلان
                     </Button>
                   </Link>
+                     <Link to="/safety">
+            <Button variant="ghost" size="sm" className="gap-1">
+              <Shield className="w-4 h-4" />
+              نصائح الأمان
+            </Button>
+          </Link>
                   <Link to="/login">
                     <Button variant="ghost" size="sm" className="gap-1 h-10">
                       <User className="w-4 h-4" />
@@ -150,7 +152,7 @@ export function Header() {
           </Link>
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="sm" className="h-10 w-10 p-0 border-primary/20 shrink-0">
+              <Button variant="outline" size="sm" className="h-10 w-10 p-0 border-primary/20 shrink-0" aria-label="فتح القائمة">
                 <Menu className="w-5 h-5" />
               </Button>
             </SheetTrigger>

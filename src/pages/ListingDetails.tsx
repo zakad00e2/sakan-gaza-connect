@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { ImageCarousel } from "@/components/ImageCarousel";
 import { ReportDialog } from "@/components/ReportDialog";
+import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Listing, LISTING_TYPES, UTILITIES } from "@/lib/constants";
@@ -283,6 +284,7 @@ export default function ListingDetails() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

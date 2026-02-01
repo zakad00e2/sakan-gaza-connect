@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { ListingForm, ListingFormData } from "@/components/ListingForm";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/use-auth";
 import { createListing, uploadListingImage } from "@/lib/listings";
-import { ArrowRight, CheckCircle, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle, Loader2, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function AddListing() {
   const navigate = useNavigate();
@@ -138,7 +140,7 @@ export default function AddListing() {
           </div>
           <h1 className="text-2xl font-bold mb-3">تم إرسال إعلانك بنجاح!</h1>
           <p className="text-muted-foreground mb-8">
-            إعلانك قيد المراجعة. سيظهر في الموقع بعد موافقة الإدارة. يمكنك متابعة حالته من صفحة إعلاناتي.
+            إعلانك قيد المراجعة. سيظهر في الموقع بعد موافقة الإدارة. يمكنك متابعة حالته أو تعديله أو حذفه من صفحة إعلاناتي.
           </p>
           <div className="flex flex-col gap-3">
             <Link to="/">
@@ -174,12 +176,21 @@ export default function AddListing() {
 
         <h1 className="text-2xl font-bold mb-6">إضافة إعلان جديد</h1>
 
+        <Alert className="mb-6 bg-primary/10 border-primary/20 text-primary-900 [&>svg]:text-primary">
+          <Info className="h-4 w-4" />
+          <AlertTitle className="font-bold text-primary">تنويه</AlertTitle>
+          <AlertDescription className="text-foreground/90 font-medium">
+            بإمكانك التعديل وحذف إعلاناتك من زر "إعلاناتي" بالقائمة الجانبية.
+          </AlertDescription>
+        </Alert>
+
         <ListingForm
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
           submitText="نشر الإعلان"
         />
       </main>
+      <Footer />
     </div>
   );
 }

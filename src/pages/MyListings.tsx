@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { MyListingCard } from "@/components/MyListingCard";
 import { ConfirmModal } from "@/components/ConfirmModal";
 import { Button } from "@/components/ui/button";
@@ -209,6 +210,7 @@ export default function MyListings() {
           variant="destructive"
         />
       </main>
+      <Footer />
     </div>
   );
 }

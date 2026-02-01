@@ -10,6 +10,7 @@ import {
   Trash2,
   Eye,
   EyeOff,
+  Clock,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
@@ -137,29 +138,42 @@ export function MyListingCard({
             تعديل
           </Button>
 
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-1"
-            onClick={() =>
-              onToggleStatus(
-                listing.id,
-                listing.status === "active" ? "hidden" : "active"
-              )
-            }
-          >
-            {listing.status === "active" ? (
-              <>
-                <EyeOff className="w-4 h-4" />
-                إخفاء
-              </>
-            ) : (
-              <>
-                <Eye className="w-4 h-4" />
-                إظهار
-              </>
-            )}
-          </Button>
+          {listing.status === "pending" ? (
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-1 opacity-70"
+              disabled
+              title="الإعلان قيد المراجعة"
+            >
+              <Clock className="w-4 h-4" />
+              قيد المراجعة
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-1"
+              onClick={() =>
+                onToggleStatus(
+                  listing.id,
+                  listing.status === "active" ? "hidden" : "active"
+                )
+              }
+            >
+              {listing.status === "active" ? (
+                <>
+                  <EyeOff className="w-4 h-4" />
+                  إخفاء
+                </>
+              ) : (
+                <>
+                  <Eye className="w-4 h-4" />
+                  إظهار
+                </>
+              )}
+            </Button>
+          )}
 
           <Button
             variant="outline"

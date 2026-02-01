@@ -8,6 +8,8 @@ import { Listing } from "@/lib/constants";
 import { Loader2, Home, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
 
+import { Footer } from "@/components/Footer";
+
 const ITEMS_PER_PAGE = 12;
 
 export default function Index() {
@@ -195,15 +197,7 @@ export default function Index() {
         )}
       </main>
 
-      {/* الفوتر */}
-      <footer className="bg-card border-t border-border py-6 mt-auto">
-        <div className="container px-4 text-center text-sm text-muted-foreground">
-          <p>جميع الحقوق محفوظة - سكن غزة © 2026
-
-</p>
-          {/* <p className="mt-2">نسأل الله أن يفرج عن أهلنا في غزة 🤲</p> */}
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
