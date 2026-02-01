@@ -1,3 +1,6 @@
+# سكن غزة - robots.txt
+# https://sakangaza.com
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +15,8 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /my/edit/
+
+# Sitemap
+Sitemap: https://sakangaza.com/sitemap.xml
