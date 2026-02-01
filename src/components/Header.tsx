@@ -40,8 +40,8 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border" role="banner">
       <div className="container flex items-center justify-between h-14 sm:h-16 px-4">
         <Link to="/" className="flex items-center gap-1.5 sm:gap-2" aria-label="سكن غزة - الصفحة الرئيسية">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-primary flex items-center justify-center" aria-hidden="true">
-            <Home className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-lg bg-primary flex items-center justify-center" aria-hidden="true">
+            <Home className="w-6 h-6 sm:w-6 sm:h-6 text-primary-foreground" />
           </div>
           <span className="text-lg sm:text-xl font-bold text-primary">سكن غزة</span>
         </Link>
