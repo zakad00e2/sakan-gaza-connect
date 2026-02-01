@@ -48,9 +48,9 @@ export function Footer() {
           {/* قسم التواصل */}
           <div className="flex flex-col items-start gap-4 w-full md:w-auto">
             <h4 className="font-bold text-lg text-foreground w-full text-right">تواصل معنا</h4>
-            <div className="flex flex-col gap-4 w-full items-start">
+            <div className="flex flex-row md:flex-col gap-4 w-full items-start">
               <a 
-                href="https://wa.me/970599000000" 
+                href="https://wa.me/970597986160" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="no-underline group"
@@ -63,7 +63,7 @@ export function Footer() {
               </a>
 
               <a 
-                href="https://www.facebook.com/profile.php?id=61572023537247" 
+                href="https://www.facebook.com/profile.php?id=61587479751048" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="no-underline group"
