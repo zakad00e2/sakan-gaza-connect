@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Header } from "@/components/Header";
 import { SearchFilters, Filters } from "@/components/SearchFilters";
 import { ListingCard } from "@/components/ListingCard";
@@ -29,7 +29,7 @@ export default function Index() {
     capacity: "",
   });
 
-  const fetchListings = async (pageNum: number, isLoadMore = false) => {
+  const fetchListings = useCallback(async (pageNum: number, isLoadMore = false) => {
     if (isLoadMore) {
       setLoadingMore(true);
     } else {
@@ -37,7 +37,7 @@ export default function Index() {
     }
 
     try {
-      let query = supabase
+      let query: any = supabase
         .from("listings")
         .select(`
           *,
@@ -58,7 +58,7 @@ export default function Index() {
         query = query.eq("type", filters.type);
       }
       if (filters.propertyType && filters.propertyType !== "all") {
-        query = query.eq("property_type", filters.propertyType as any);
+        query = query.eq("property_type", filters.propertyType);
       }
       if (filters.minPrice) {
         query = query.gte("price", parseInt(filters.minPrice));
@@ -82,7 +82,7 @@ export default function Index() {
 
       if (error) throw error;
 
-      const formattedData: Listing[] = (data || []).map(item => {
+      const formattedData: Listing[] = (data || []).map((item: any) => {
         const anyItem = item as Record<string, unknown>;
         return {
           ...item,
@@ -108,12 +108,12 @@ export default function Index() {
       setLoading(false);
       setLoadingMore(false);
     }
-  };
+  }, [filters]);
 
   useEffect(() => {
     setPage(0);
     fetchListings(0);
-  }, [filters]);
+  }, [fetchListings]);
 
   const loadMore = () => {
     const nextPage = page + 1;
