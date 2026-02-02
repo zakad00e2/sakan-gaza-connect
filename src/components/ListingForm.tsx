@@ -201,6 +201,14 @@ export function ListingForm({
       newErrors.price = "يرجى تحديد السعر";
     }
 
+    if (!formData.description.trim()) {
+      newErrors.description = "يرجى إضافة وصف للإعلان";
+    }
+
+    if (totalImages === 0) {
+      newErrors.images = "يرجى إضافة صورة واحدة على الأقل";
+    }
+
     if (formData.property_type === "apartment" && !formData.rooms) {
       newErrors.rooms = "يرجى تحديد عدد الغرف";
     }
@@ -523,7 +531,7 @@ export function ListingForm({
 
       {/* الوصف */}
       <div className="space-y-2">
-        <Label htmlFor="description">وصف إضافي</Label>
+        <Label htmlFor="description">وصف إضافي *</Label>
         <Textarea
           id="description"
           placeholder={
@@ -540,12 +548,15 @@ export function ListingForm({
           className="min-h-[120px]"
           maxLength={1000}
         />
+        {errors.description && (
+          <p className="text-sm text-destructive">{errors.description}</p>
+        )}
       </div>
 
       {/* الصور */}
       <div className="space-y-3">
         <Label className="text-base">
-          الصور (اختياري - حتى 5 صور) - {totalImages}/5
+          الصور (مطلوب صورة واحدة على الأقل) - {totalImages}/5
         </Label>
 
         <div className="flex flex-wrap gap-3">
