@@ -195,6 +195,12 @@ export function ListingForm({
     if (!formData.area) {
       newErrors.area = "يرجى اختيار المنطقة";
     }
+    
+    // التحقق من السعر لشقق الإيجار
+    if (formData.property_type === "apartment" && formData.type === "rent" && !formData.price) {
+      newErrors.price = "يرجى تحديد السعر";
+    }
+
     if (formData.property_type === "apartment" && !formData.rooms) {
       newErrors.rooms = "يرجى تحديد عدد الغرف";
     }
@@ -337,7 +343,9 @@ export function ListingForm({
       {/* السعر */}
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="price">السعر (شيكل)</Label>
+          <Label htmlFor="price">
+            السعر (شيكل) {formData.property_type === "apartment" && formData.type === "rent" && "*"}
+          </Label>
           <Input
             id="price"
             type="number"
@@ -346,19 +354,25 @@ export function ListingForm({
             onChange={(e) => setFormData({ ...formData, price: e.target.value })}
             className="input-touch"
           />
+          {errors.price && (
+            <p className="text-sm text-destructive">{errors.price}</p>
+          )}
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="price_note">أو ملاحظة</Label>
-          <Input
-            id="price_note"
-            placeholder="تفاوض / مساعدة"
-            value={formData.price_note}
-            onChange={(e) =>
-              setFormData({ ...formData, price_note: e.target.value })
-            }
-            className="input-touch"
-          />
-        </div>
+        
+        {!(formData.property_type === "apartment" && formData.type === "rent") && (
+          <div className="space-y-2">
+            <Label htmlFor="price_note">أو ملاحظة</Label>
+            <Input
+              id="price_note"
+              placeholder="تفاوض / مساعدة"
+              value={formData.price_note}
+              onChange={(e) =>
+                setFormData({ ...formData, price_note: e.target.value })
+              }
+              className="input-touch"
+            />
+          </div>
+        )}
       </div>
 
       {/* حقول حسب نوع العقار */}
