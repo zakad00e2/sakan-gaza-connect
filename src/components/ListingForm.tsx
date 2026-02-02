@@ -196,9 +196,9 @@ export function ListingForm({
       newErrors.area = "يرجى اختيار المنطقة";
     }
     
-    // التحقق من السعر لشقق الإيجار
-    if (formData.property_type === "apartment" && formData.type === "rent" && !formData.price) {
-      newErrors.price = "يرجى تحديد السعر";
+    // التحقق من السعر لجميع اعلانات الإيجار (شقة، أرض، حاصل)
+    if (formData.type === "rent" && !formData.price) {
+      newErrors.price = "يرجى تحديد السعر للإيجار";
     }
 
     if (!formData.description.trim()) {
@@ -352,7 +352,7 @@ export function ListingForm({
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="price">
-            السعر (شيكل) {formData.property_type === "apartment" && formData.type === "rent" && "*"}
+            السعر (شيكل) {formData.type === "rent" && "*"}
           </Label>
           <Input
             id="price"
@@ -367,7 +367,7 @@ export function ListingForm({
           )}
         </div>
         
-        {!(formData.property_type === "apartment" && formData.type === "rent") && (
+        {formData.type !== "rent" && (
           <div className="space-y-2">
             <Label htmlFor="price_note">أو ملاحظة</Label>
             <Input
