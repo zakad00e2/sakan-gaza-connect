@@ -50,7 +50,7 @@ export function Footer() {
             <h4 className="font-bold text-lg text-foreground w-full text-right">تواصل معنا</h4>
             <div className="flex flex-row md:flex-col gap-4 w-full items-start">
               <a 
-                href="https://wa.me/970597986160" 
+                href="https://wa.me/+9720597986160" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="no-underline group"

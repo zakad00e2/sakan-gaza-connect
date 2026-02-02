@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { AREAS, LISTING_TYPES, PROPERTY_TYPES, UtilityKey, Listing, PropertyType } from "@/lib/constants";
+import { AREAS, LISTING_TYPES, PROPERTY_TYPES, COUNTRY_CODES, UtilityKey, Listing, PropertyType } from "@/lib/constants";
 import { Upload, X, Loader2, Home, MapPin, Warehouse } from "lucide-react";
 
 // ========================================
@@ -125,6 +125,38 @@ export function ListingForm({
   const [formData, setFormData] = useState<ListingFormData>(
     initialData ? listingToFormData(initialData) : defaultFormData
   );
+
+  // إدارة رقم الهاتف (مقدمة دولة + رقم محلي)
+  const [countryCode, setCountryCode] = useState(() => {
+    if (initialData?.contact_phone) {
+      const found = COUNTRY_CODES.find(c => initialData.contact_phone.startsWith(c.code));
+      return found ? found.code : "+970";
+    }
+    return "+970";
+  });
+
+  const [localPhone, setLocalPhone] = useState(() => {
+    if (initialData?.contact_phone) {
+      const found = COUNTRY_CODES.find(c => initialData.contact_phone.startsWith(c.code));
+      if (found) {
+        return initialData.contact_phone.substring(found.code.length);
+      }
+      return initialData.contact_phone;
+    }
+    return "";
+  });
+
+  // تحديث رقم الهاتف الكامل عند تغيير المقدمة أو الرقم المحلي
+  useEffect(() => {
+    let cleanPhone = localPhone.trim();
+    // إزالة الصفر في البداية إذا وجد لتجنب تكراره مع المقدمة
+    if (cleanPhone.startsWith("0")) cleanPhone = cleanPhone.substring(1);
+    
+    setFormData(prev => ({ 
+      ...prev, 
+      contact_phone: cleanPhone ? `${countryCode}${cleanPhone}` : "" 
+    }));
+  }, [countryCode, localPhone]);
 
   // الصور الموجودة (للتعديل)
   const [existingImages, setExistingImages] = useState<ExistingImage[]>(
@@ -644,20 +676,37 @@ export function ListingForm({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="contact_phone">رقم الهاتف *</Label>
-          <Input
-            id="contact_phone"
-            type="tel"
-            placeholder="مثال: 059XXXXXXX"
-            value={formData.contact_phone}
-            onChange={(e) =>
-              setFormData({ ...formData, contact_phone: e.target.value })
-            }
-            className="input-touch"
-            dir="ltr"
-          />
+          <Label htmlFor="contact_phone">رقم الجوال *</Label>
+          <div className="flex gap-2" dir="ltr">
+            <Select value={countryCode} onValueChange={setCountryCode}>
+              <SelectTrigger className="w-[110px] sm:w-[130px] h-10">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent align="end">
+                {COUNTRY_CODES.map((item) => (
+                  <SelectItem key={item.code} value={item.code}>
+                    <span className="flex items-center gap-2 justify-between w-full">
+                      <span>{item.code}</span>
+                      <span className="text-muted-foreground text-xs truncate max-w-[80px]">
+                        {item.country.split(' ')[0]}
+                      </span>
+                    </span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            
+            <Input
+              id="contact_phone"
+              type="tel"
+              placeholder="رقم الجوال"
+              value={localPhone}
+              onChange={(e) => setLocalPhone(e.target.value)}
+              className="input-touch flex-1"
+            />
+          </div>
           {errors.contact_phone && (
-            <p className="text-sm text-destructive">{errors.contact_phone}</p>
+            <p className="text-sm text-destructive text-right">{errors.contact_phone}</p>
           )}
         </div>
 

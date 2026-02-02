@@ -46,6 +46,22 @@ export const LISTING_STATUS = {
 
 export type ListingStatus = keyof typeof LISTING_STATUS;
 
+// مقدمات الدول
+export const COUNTRY_CODES = [
+  { code: "+970", country: "فلسطين (Palestine)" },
+  { code: "+972", country: "فلسطين المحتلة (48)" },
+  { code: "+20", country: "مصر (Egypt)" },
+  { code: "+962", country: "الأردن (Jordan)" },
+  { code: "+966", country: "السعودية (Saudi Arabia)" },
+  { code: "+971", country: "الإمارات (UAE)" },
+  { code: "+974", country: "قطر (Qatar)" },
+  { code: "+90", country: "تركيا (Turkey)" },
+  { code: "+1", country: "أمريكا/كندا (US/CA)" },
+  { code: "+44", country: "بريطانيا (UK)" },
+  { code: "+49", country: "ألمانيا (Germany)" },
+  { code: "+33", country: "فرنسا (France)" },
+] as const;
+
 // أسباب الإبلاغ
 export const REPORT_REASONS = [
   "إعلان وهمي أو احتيال",

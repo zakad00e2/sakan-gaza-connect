@@ -86,15 +86,32 @@ export default function ListingDetails() {
   };
 
   const formatWhatsApp = (phone: string) => {
+    // التحقق مما إذا كان الرقم يبدأ بـ + (تنسيق دولي)
+    const isInternational = phone.startsWith("+");
+    
     // إزالة كل شيء عدا الأرقام
     let cleaned = phone.replace(/\D/g, "");
+    
+    // إذا كان الرقم يبدأ بـ + (تم حفظه عبر القائمة الجديدة)
+    if (isInternational) {
+      // إصلاح الصفر الزائد في حال وجوده، مع الحفاظ على المقدمة كما هي (970 أو 972)
+      if (cleaned.startsWith("970") || cleaned.startsWith("972")) {
+        const prefix = cleaned.substring(0, 3);
+        let remainder = cleaned.slice(3);
+        if (remainder.startsWith("0")) remainder = remainder.slice(1);
+        return prefix + remainder;
+      }
+      return cleaned;
+    }
+
+    // منطق الأرقام القديمة (بدون +)
     
     // إذا بدأ بـ 00 نزيلها
     if (cleaned.startsWith("00")) {
       cleaned = cleaned.slice(2);
     }
     
-    // إذا بدأ بـ 972 أو 970 نستخدم 972
+    // إذا بدأ بـ 972 أو 970
     if (cleaned.startsWith("970")) {
       return "972" + cleaned.slice(3);
     }
@@ -102,17 +119,18 @@ export default function ListingDetails() {
       return cleaned;
     }
     
-    // إذا بدأ بـ 0 (مثل 0597986160) نستبدله بـ 972
+    // إذا بدأ بـ 0 نعتبره رقم محلي ونحوله
     if (cleaned.startsWith("0")) {
       return "972" + cleaned.slice(1);
     }
     
-    // إذا كان 9 أرقام نضيف 972
+    // إذا كان 9 أرقام (رقم محلي بدون صفر) نعتبره محلي
     if (cleaned.length === 9) {
       return "972" + cleaned;
     }
     
-    return "972" + cleaned;
+    // أي شيء آخر نرجعه كما هو (قد يكون رقم دولي مكتوب يدوياً)
+    return cleaned;
   };
 
   if (loading) {
