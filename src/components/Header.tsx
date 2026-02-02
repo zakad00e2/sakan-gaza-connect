@@ -37,10 +37,10 @@ export function Header() {
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border" role="banner">
+    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border py-1" role="banner">
       <div className="container flex items-center justify-between h-14 sm:h-16 px-4">
         <Link to="/" className="flex items-center gap-1.5 sm:gap-2" aria-label="سكن غزة - الصفحة الرئيسية">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-lg bg-primary flex items-center justify-center" aria-hidden="true">
+          <div className="w-10 h-10  sm:w-10 sm:h-10 rounded-lg sm:rounded-lg bg-primary flex items-center justify-center" aria-hidden="true">
             <Home className="w-6 h-6 sm:w-6 sm:h-6 text-primary-foreground" />
           </div>
           <span className="text-lg sm:text-xl font-bold text-primary">سكن غزة</span>
