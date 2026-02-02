@@ -58,7 +58,7 @@ export default function Index() {
         query = query.eq("type", filters.type);
       }
       if (filters.propertyType && filters.propertyType !== "all") {
-        query = query.eq("property_type", filters.propertyType);
+        query = query.eq("property_type", filters.propertyType as any);
       }
       if (filters.minPrice) {
         query = query.gte("price", parseInt(filters.minPrice));
