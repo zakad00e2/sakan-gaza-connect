@@ -19,6 +19,7 @@ const AuthCallback = lazy(() => import("./pages/AuthCallback"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminReports = lazy(() => import("./pages/AdminReports"));
 const AdminPending = lazy(() => import("./pages/AdminPending"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +56,7 @@ const App = () => (
               <Route path="/my/edit/:id" element={<EditListing />} />
               <Route path="/admin/reports" element={<AdminReports />} />
               <Route path="/admin/pending" element={<AdminPending />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

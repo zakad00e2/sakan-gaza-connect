@@ -41,6 +41,10 @@ export function Footer() {
                 <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-primary opacity-0 hover:opacity-100 transition-opacity"></span>
                 نصائح الأمان
               </Link>
+              <Link to="/privacy-policy" className="hover:text-primary hover:-translate-x-1 transition-all duration-300 flex items-center justify-start gap-2">
+                <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-primary opacity-0 hover:opacity-100 transition-opacity"></span>
+                سياسة الخصوصية
+              </Link>
             </nav>
           </div>
 
