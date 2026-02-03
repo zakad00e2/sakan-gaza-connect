@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { signInWithMagicLink, signInWithGoogle } from "@/lib/auth";
-import { ArrowRight, Loader2, Mail } from "lucide-react";
+import { signInWithMagicLink, signInWithGoogle, signInWithFacebook } from "@/lib/auth";
+import { ArrowRight, Loader2, Mail, Facebook } from "lucide-react";
 
 export default function Login() {
   const [searchParams] = useSearchParams();
@@ -15,6 +15,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isFacebookLoading, setIsFacebookLoading] = useState(false);
   const [magicLinkSent, setMagicLinkSent] = useState(false);
 
   const nextUrl = searchParams.get("next") || "/";
@@ -57,6 +58,21 @@ export default function Login() {
         variant: "destructive",
       });
       setIsGoogleLoading(false);
+    }
+  };
+
+  const handleFacebookLogin = async () => {
+    setIsFacebookLoading(true);
+    try {
+      await signInWithFacebook(nextUrl);
+    } catch (error: unknown) {
+      console.error("Facebook login error:", error);
+      const err = error as { message?: string };
+      toast({
+        title: err.message || "حدث خطأ أثناء تسجيل الدخول بـ Facebook",
+        variant: "destructive",
+      });
+      setIsFacebookLoading(false);
     }
   };
 
@@ -103,6 +119,23 @@ export default function Login() {
             </div>
           ) : (
             <>
+              {/* Facebook Login */}
+              <Button
+                type="button"
+                variant="outline"
+                size="lg"
+                className="w-full btn-touch gap-3 mb-3 text-[#1877F2] border-[#1877F2]/20 hover:bg-[#1877F2]/5"
+                onClick={handleFacebookLogin}
+                disabled={isFacebookLoading || isGoogleLoading}
+              >
+                {isFacebookLoading ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Facebook className="w-5 h-5" />
+                )}
+                الدخول عبر Facebook
+              </Button>
+
               {/* Google Login */}
               <Button
                 type="button"
@@ -110,7 +143,7 @@ export default function Login() {
                 size="lg"
                 className="w-full btn-touch gap-3 mb-6"
                 onClick={handleGoogleLogin}
-                disabled={isGoogleLoading}
+                disabled={isGoogleLoading || isFacebookLoading}
               >
                 {isGoogleLoading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />

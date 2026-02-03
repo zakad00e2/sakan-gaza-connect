@@ -114,6 +114,26 @@ export async function signInWithGoogle(redirectTo?: string) {
 }
 
 /**
+ * تسجيل الدخول عبر Facebook
+ */
+export async function signInWithFacebook(redirectTo?: string) {
+  // حفظ الصفحة المطلوبة للتوجيه إليها بعد تسجيل الدخول
+  if (redirectTo) {
+    localStorage.setItem("auth_redirect", redirectTo);
+  }
+  
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "facebook",
+    options: {
+      redirectTo: `${window.location.origin}/auth/callback`,
+    },
+  });
+
+  if (error) throw error;
+  return data;
+}
+
+/**
  * تسجيل الخروج
  */
 export async function signOut() {

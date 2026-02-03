@@ -236,9 +236,14 @@ export default function AdminPending() {
                       <p>
                         <span className="text-muted-foreground">السعر:</span>{" "}
                         <span className="font-medium">
-                          {listing.price
-                            ? `${listing.price.toLocaleString("ar-EG")} ₪`
-                            : listing.price_note || "—"}
+                          {listing.price ? (
+                            <>
+                              {listing.price.toLocaleString("ar-EG")} ₪
+                              {listing.type === 'rent' && <span className="text-xs font-normal"> / شهريا</span>}
+                            </>
+                          ) : (
+                            listing.price_note || "—"
+                          )}
                         </span>
                       </p>
                       {listing.description && (

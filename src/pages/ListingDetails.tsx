@@ -74,7 +74,12 @@ export default function ListingDetails() {
 
   const formatPrice = () => {
     if (listing?.price) {
-      return `${listing.price.toLocaleString("ar-EG")} ₪`;
+      return (
+        <>
+          {listing.price.toLocaleString("ar-EG")} ₪
+          {listing.type === 'rent' && <span className="text-xs font-normal"> / شهريا</span>}
+        </>
+      );
     }
     return listing?.price_note || "تفاوض";
   };
@@ -288,7 +293,7 @@ export default function ListingDetails() {
                 className="contact-phone flex-1 justify-center"
               >
                 <Phone className="w-5 h-5" />
-                {listing.contact_phone}
+                <span dir="ltr">{listing.contact_phone}</span>
               </a>
             </div>
           </div>

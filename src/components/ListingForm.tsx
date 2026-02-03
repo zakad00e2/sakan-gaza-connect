@@ -384,7 +384,7 @@ export function ListingForm({
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="price">
-            السعر (شيكل) {formData.type === "rent" && "*"}
+            السعر (شيكل) {formData.type === "rent" && <span className="text-xs">/شهريا *</span>}
           </Label>
           <Input
             id="price"
@@ -678,7 +678,7 @@ export function ListingForm({
         <div className="space-y-2">
           <Label htmlFor="contact_phone">رقم الجوال *</Label>
           <div className="flex gap-2" dir="ltr">
-            <Select value={countryCode} onValueChange={setCountryCode}>
+            <Select value={countryCode} onValueChange={(v) => setCountryCode(v as typeof countryCode)}>
               <SelectTrigger className="w-[110px] sm:w-[130px] h-10">
                 <SelectValue />
               </SelectTrigger>

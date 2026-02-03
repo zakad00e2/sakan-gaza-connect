@@ -30,7 +30,12 @@ export function MyListingCard({
 }: MyListingCardProps) {
   const formatPrice = () => {
     if (listing.price) {
-      return `${listing.price.toLocaleString("ar-EG")} ₪`;
+      return (
+        <>
+          {listing.price.toLocaleString("ar-EG")} ₪
+          {listing.type === 'rent' && <span className="text-xs font-normal"> / شهريا</span>}
+        </>
+      );
     }
     return listing.price_note || "تفاوض";
   };
