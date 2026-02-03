@@ -200,7 +200,6 @@ export default function ListingDetails() {
             </div>
             <div className="text-left">
               <p className="text-2xl font-bold text-primary">{formatPrice()}</p>
-              {listing.type === "rent" && <span className="text-sm text-muted-foreground">شهرياً</span>}
             </div>
           </div>
 
