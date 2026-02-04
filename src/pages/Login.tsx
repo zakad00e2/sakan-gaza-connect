@@ -120,7 +120,7 @@ export default function Login() {
           ) : (
             <>
               {/* Facebook Login */}
-              <Button
+              {/* <Button
                 type="button"
                 variant="outline"
                 size="lg"
@@ -134,7 +134,7 @@ export default function Login() {
                   <Facebook className="w-5 h-5 text-[#1877F2]" />
                 )}
                 الدخول عبر Facebook
-              </Button>
+              </Button> */}
 
               {/* Google Login */}
               <Button
