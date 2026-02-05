@@ -32,11 +32,14 @@ export default function ListingDetails() {
   const [listing, setListing] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const { isAdmin } = useIsAdmin();
+  const { isAdmin, loading: adminLoading } = useIsAdmin();
 
   useEffect(() => {
     const fetchListing = async () => {
       if (!id) return;
+
+      // انتظر حتى ينتهي تحميل معلومات الأدمن
+      if (adminLoading) return;
 
       try {
         // جلب البيانات بدون فلتر الحالة أولاً
@@ -80,7 +83,7 @@ export default function ListingDetails() {
     };
 
     fetchListing();
-  }, [id, isAdmin]);
+  }, [id, isAdmin, adminLoading]);
 
   const formatPrice = () => {
     if (listing?.price) {
