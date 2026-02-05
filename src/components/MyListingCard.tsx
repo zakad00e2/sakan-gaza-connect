@@ -11,6 +11,7 @@ import {
   Eye,
   EyeOff,
   Clock,
+  XCircle,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
@@ -49,6 +50,10 @@ export function MyListingCard({
       pending: {
         label: LISTING_STATUS.pending,
         className: "bg-warning/10 text-warning border-warning/20",
+      },
+      rejected: {
+        label: LISTING_STATUS.rejected,
+        className: "bg-destructive/10 text-destructive border-destructive/20",
       },
       hidden: {
         label: LISTING_STATUS.hidden,
@@ -138,6 +143,7 @@ export function MyListingCard({
             size="sm"
             className="flex-1 gap-1"
             onClick={() => onEdit(listing.id)}
+            disabled={listing.status === "rejected"}
           >
             <Edit className="w-4 h-4" />
             تعديل
@@ -153,6 +159,17 @@ export function MyListingCard({
             >
               <Clock className="w-4 h-4" />
               قيد المراجعة
+            </Button>
+          ) : listing.status === "rejected" ? (
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-1 text-destructive opacity-70"
+              disabled
+              title="تم رفض الإعلان من قبل الإدارة"
+            >
+              <XCircle className="w-4 h-4" />
+              مرفوض
             </Button>
           ) : (
             <Button

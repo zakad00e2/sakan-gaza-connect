@@ -71,7 +71,7 @@ export default function ListingDetails() {
           property_type: ((anyData.property_type as string) || "apartment") as "apartment" | "land" | "warehouse",
           rooms: data.rooms ?? null,
           floor_area: (anyData.floor_area as number) ?? null,
-          status: data.status as "active" | "pending" | "hidden",
+          status: data.status as "active" | "pending" | "rejected" | "hidden",
           utilities: (data.utilities as { water: boolean; electricity: boolean; internet: boolean }) || { water: false, electricity: false, internet: false },
         });
       } catch (err) {

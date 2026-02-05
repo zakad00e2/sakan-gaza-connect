@@ -300,7 +300,7 @@ export default function AdminPending() {
           <AlertDialogHeader>
             <AlertDialogTitle>رفض الإعلان</AlertDialogTitle>
             <AlertDialogDescription>
-              هل أنت متأكد من رفض هذا الإعلان؟ لن يظهر في الموقع وستظهر حالته للمُعلن كـ &quot;مخفي&quot;.
+              هل أنت متأكد من رفض هذا الإعلان؟ لن يظهر في الموقع وستظهر حالته للمُعلن كـ &quot;مرفوض&quot;. المعلن لن يستطيع تعديله أو إظهاره مرة أخرى.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

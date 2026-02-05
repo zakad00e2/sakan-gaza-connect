@@ -23,7 +23,7 @@ export function Footer() {
 
           {/* روابط سريعة */}
           <div className="hidden md:flex flex-col items-center md:items-start gap-4 md:pl-8 lg:pl-0 w-full md:w-auto">
-            <h4 className="font-bold text-lg text-foreground w-full text-right md:text-right">روابط هامة</h4>
+            <h4 className="font-bold text-lg text-foreground w-full text-right md:text-right">روابط سريعة</h4>
             <nav className="grid grid-cols-2 gap-3 text-sm text-muted-foreground w-full md:flex md:flex-col md:items-start">
               <Link to="/" className="hover:text-primary hover:-translate-x-1 transition-all duration-300 flex items-center justify-start gap-2">
                 <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-primary opacity-0 hover:opacity-100 transition-opacity"></span>

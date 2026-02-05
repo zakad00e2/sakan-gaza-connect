@@ -294,7 +294,7 @@ export async function approveListing(id: string): Promise<void> {
 export async function rejectListing(id: string): Promise<void> {
   const { error } = await supabase
     .from("listings")
-    .update({ status: "hidden" })
+    .update({ status: "rejected" })
     .eq("id", id);
   if (error) throw error;
 }

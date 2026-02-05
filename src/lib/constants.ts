@@ -41,6 +41,7 @@ export type PropertyType = keyof typeof PROPERTY_TYPES;
 export const LISTING_STATUS = {
   active: "نشط",
   pending: "قيد المراجعة",
+  rejected: "مرفوض",
   hidden: "مخفي",
 } as const;
 
