@@ -5,8 +5,10 @@ import { ImageCarousel } from "@/components/ImageCarousel";
 import { ReportDialog } from "@/components/ReportDialog";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { Listing, LISTING_TYPES, UTILITIES } from "@/lib/constants";
+import { useIsAdmin } from "@/hooks/use-is-admin";
 import {
   ArrowRight,
   MapPin,
@@ -20,6 +22,7 @@ import {
   Loader2,
   AlertTriangle,
   Ruler,
+  Clock,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
@@ -29,12 +32,14 @@ export default function ListingDetails() {
   const [listing, setListing] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const { isAdmin } = useIsAdmin();
 
   useEffect(() => {
     const fetchListing = async () => {
       if (!id) return;
 
       try {
+        // جلب البيانات بدون فلتر الحالة أولاً
         const { data, error } = await supabase
           .from("listings")
           .select(`
@@ -42,11 +47,16 @@ export default function ListingDetails() {
             listing_images (id, url)
           `)
           .eq("id", id)
-          .eq("status", "active")
           .maybeSingle();
 
         if (error) throw error;
         if (!data) {
+          setError(true);
+          return;
+        }
+
+        // السماح للأدمن برؤية جميع الإعلانات، غير الأدمن يرى فقط النشطة
+        if (data.status !== "active" && !isAdmin) {
           setError(true);
           return;
         }
@@ -70,7 +80,7 @@ export default function ListingDetails() {
     };
 
     fetchListing();
-  }, [id]);
+  }, [id, isAdmin]);
 
   const formatPrice = () => {
     if (listing?.price) {
@@ -186,12 +196,34 @@ export default function ListingDetails() {
 
         {/* التفاصيل */}
         <div className="mt-6 space-y-6">
+          {/* تحذير للأدمن إذا كان الإعلان معلق */}
+          {isAdmin && listing.status === "pending" && (
+            <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 flex items-start gap-3">
+              <Clock className="w-5 h-5 text-yellow-600 dark:text-yellow-500 mt-0.5" />
+              <div>
+                <h3 className="font-semibold text-yellow-900 dark:text-yellow-100">
+                  إعلان قيد المراجعة
+                </h3>
+                <p className="text-sm text-yellow-800 dark:text-yellow-200 mt-1">
+                  هذا الإعلان غير منشور بعد ويظهر لك فقط لأنك مسؤول. يرجى الموافقة عليه أو رفضه من صفحة الإعلانات المعلقة.
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* العنوان والنوع */}
           <div className="flex items-start justify-between gap-4">
             <div>
-              <span className={listing.type === "rent" ? "badge-rent" : "badge-sale"}>
-                {LISTING_TYPES[listing.type]}
-              </span>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className={listing.type === "rent" ? "badge-rent" : "badge-sale"}>
+                  {LISTING_TYPES[listing.type]}
+                </span>
+                {isAdmin && listing.status !== "active" && (
+                  <Badge variant={listing.status === "pending" ? "secondary" : "outline"}>
+                    {listing.status === "pending" ? "قيد المراجعة" : "مخفي"}
+                  </Badge>
+                )}
+              </div>
               <h1 className="text-2xl font-bold mt-2">{listing.title}</h1>
               <div className="flex items-center gap-1 text-muted-foreground mt-1">
                 <MapPin className="w-4 h-4" />
