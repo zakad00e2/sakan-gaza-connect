@@ -188,7 +188,7 @@ export default function EditListing() {
         <Header />
         <div className="container px-4 py-20 text-center max-w-md mx-auto">
           <AlertTriangle className="w-16 h-16 mx-auto text-destructive/50 mb-4" />
-          <h2 className="text-xl font-bold mb-2">غير مصرح</h2>
+          <h2 className="text-xl font-medium mb-2">غير مصرح</h2>
           <p className="text-muted-foreground mb-6">{error}</p>
           <Link to="/my">
             <Button>العودة لإعلاناتي</Button>
@@ -204,7 +204,7 @@ export default function EditListing() {
         <Header />
         <div className="container px-4 py-20 text-center max-w-md mx-auto">
           <AlertTriangle className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
-          <h2 className="text-xl font-bold mb-2">الإعلان غير موجود</h2>
+          <h2 className="text-xl font-medium mb-2">الإعلان غير موجود</h2>
           <p className="text-muted-foreground mb-6">
             ربما تم حذف هذا الإعلان
           </p>
@@ -233,7 +233,7 @@ export default function EditListing() {
           العودة لإعلاناتي
         </Link>
 
-        <h1 className="text-2xl font-bold mb-6">تعديل الإعلان</h1>
+        <h1 className="text-2xl font-medium mb-6">تعديل الإعلان</h1>
 
         <ListingForm
           initialData={listing}

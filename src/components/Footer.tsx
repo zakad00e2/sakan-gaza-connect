@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export function Footer() {
   return (
-    <footer className="bg-muted/30 border-t border-border mt-auto">
+    <footer className="bg-muted/30 border-t border-border mt-auto font-arabic font-medium">
       <div className="container px-4 py-6 md:py-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16 items-start">
           
@@ -14,7 +14,7 @@ export function Footer() {
               <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center" aria-hidden="true">
                 <Home className="w-6 h-6 text-primary-foreground " />
               </div>
-              <span className="text-2xl font-bold text-primary">سكن غزة</span>
+              <span className="text-2xl font-medium text-primary">سكن غزة</span>
             </Link>
             <p className="text-lg text-muted-foreground max-w-md md:max-w-none leading-relaxed">
               منصة تهدف لتسهيل البحث عن سكن للعائلات النازحة في قطاع غزة.
@@ -23,7 +23,7 @@ export function Footer() {
 
           {/* روابط سريعة */}
           <div className="hidden md:flex flex-col items-center md:items-start gap-4 md:pl-8 lg:pl-0 w-full md:w-auto">
-            <h4 className="font-bold text-lg text-foreground w-full text-right md:text-right">روابط سريعة</h4>
+            <h4 className="font-medium text-lg text-foreground w-full text-right md:text-right">روابط سريعة</h4>
             <nav className="grid grid-cols-2 gap-3 text-sm text-muted-foreground w-full md:flex md:flex-col md:items-start">
               <Link to="/" className="hover:text-primary hover:-translate-x-1 transition-all duration-300 flex items-center justify-start gap-2">
                 <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-primary opacity-0 hover:opacity-100 transition-opacity"></span>
@@ -51,7 +51,7 @@ export function Footer() {
 
           {/* قسم التواصل */}
           <div className="flex flex-col items-start gap-4 w-full md:w-auto">
-            <h4 className="font-bold text-lg text-foreground w-full text-right">تواصل معنا</h4>
+            <h4 className="font-medium text-lg text-foreground w-full text-right">تواصل معنا</h4>
             <div className="flex flex-row md:flex-col gap-4 w-full items-start">
               <a 
                 href="https://wa.me/+9720597986160" 

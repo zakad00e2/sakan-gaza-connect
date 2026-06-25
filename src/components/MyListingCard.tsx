@@ -34,7 +34,7 @@ export function MyListingCard({
       return (
         <>
           {listing.price.toLocaleString("ar-EG")} ₪
-          {listing.type === 'rent' && <span className="text-xs font-normal"> / شهريا</span>}
+          {listing.type === 'rent' && <span className="text-xs font-medium"> / شهريا</span>}
         </>
       );
     }
@@ -104,7 +104,7 @@ export function MyListingCard({
       {/* المحتوى */}
       <div className="p-4">
         <Link to={`/listing/${listing.id}`} className="hover:underline">
-          <h3 className="font-bold text-lg mb-2 line-clamp-1">
+          <h3 className="font-arabic font-medium text-lg mb-2 line-clamp-1">
             {listing.title}
           </h3>
         </Link>
@@ -127,7 +127,7 @@ export function MyListingCard({
         </div>
 
         <div className="flex items-center justify-between mb-4">
-          <span className="text-lg font-bold text-primary">{formatPrice()}</span>
+          <span className="text-lg font-medium text-primary">{formatPrice()}</span>
           <span className="text-xs text-muted-foreground">
             {formatDistanceToNow(new Date(listing.created_at), {
               addSuffix: true,

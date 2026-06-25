@@ -16,7 +16,7 @@ export function ListingCard({ listing }: ListingCardProps) {
       return (
         <>
           {listing.price.toLocaleString("ar-EG")} ₪
-          {listing.type === 'rent' && <span className="text-xs font-normal"> / شهريا</span>}
+          {listing.type === 'rent' && <span className="text-xs font-medium"> / شهريا</span>}
         </>
       );
     }
@@ -49,7 +49,7 @@ export function ListingCard({ listing }: ListingCardProps) {
       </div>
 
       <div className="p-4">
-        <h3 className="font-bold text-lg mb-2 line-clamp-1">{listing.title}</h3>
+        <h3 className="font-arabic font-medium text-lg mb-2 line-clamp-1">{listing.title}</h3>
         
         <div className="flex items-center gap-1 text-muted-foreground text-sm mb-3">
           <MapPin className="w-4 h-4" />
@@ -90,7 +90,7 @@ export function ListingCard({ listing }: ListingCardProps) {
         </div>
 
         <div className="flex items-center justify-between pt-3 border-t border-border">
-          <span className="text-xl font-bold text-primary">{formatPrice()}</span>
+          <span className="text-xl font-medium text-primary">{formatPrice()}</span>
           <span className="text-xs text-muted-foreground">
             {formatDistanceToNow(new Date(listing.created_at), { addSuffix: true, locale: ar })}
           </span>

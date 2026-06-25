@@ -169,7 +169,7 @@ export default function AdminPending() {
       <Header />
       <main className="container py-8">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold flex items-center gap-2">
+          <h1 className="text-3xl font-medium flex items-center gap-2">
             <ClipboardCheck className="w-8 h-8 text-primary" />
             إعلانات قيد المراجعة
           </h1>
@@ -187,7 +187,7 @@ export default function AdminPending() {
           <Card>
             <CardContent className="py-12 text-center">
               <CheckCircle className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">لا توجد إعلانات معلقة</h3>
+              <h3 className="text-xl font-medium mb-2">لا توجد إعلانات معلقة</h3>
               <p className="text-muted-foreground">
                 جميع الإعلانات تمت مراجعتها، أو لم يُضف إعلان جديد بعد.
               </p>
@@ -239,7 +239,7 @@ export default function AdminPending() {
                           {listing.price ? (
                             <>
                               {listing.price.toLocaleString("ar-EG")} ₪
-                              {listing.type === 'rent' && <span className="text-xs font-normal"> / شهريا</span>}
+                              {listing.type === 'rent' && <span className="text-xs font-medium"> / شهريا</span>}
                             </>
                           ) : (
                             listing.price_note || "—"

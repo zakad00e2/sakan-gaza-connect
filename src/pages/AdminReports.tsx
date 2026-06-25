@@ -213,7 +213,7 @@ export default function AdminReports() {
       <Header />
       <main className="container py-8">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold flex items-center gap-2">
+          <h1 className="text-3xl font-medium flex items-center gap-2">
             <Flag className="w-8 h-8 text-primary" />
             إدارة البلاغات
           </h1>
@@ -231,7 +231,7 @@ export default function AdminReports() {
           <Card>
             <CardContent className="py-12 text-center">
               <Flag className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">لا توجد بلاغات</h3>
+              <h3 className="text-xl font-medium mb-2">لا توجد بلاغات</h3>
               <p className="text-muted-foreground">
                 لا توجد بلاغات مقدمة حالياً
               </p>
@@ -264,13 +264,13 @@ export default function AdminReports() {
                 <CardContent className="pt-6">
                   <div className="space-y-4">
                     <div>
-                      <h4 className="text-sm font-semibold mb-1">سبب البلاغ:</h4>
+                      <h4 className="text-sm font-medium mb-1">سبب البلاغ:</h4>
                       <Badge variant="destructive">{report.reason}</Badge>
                     </div>
 
                     {report.details && (
                       <div>
-                        <h4 className="text-sm font-semibold mb-1">التفاصيل:</h4>
+                        <h4 className="text-sm font-medium mb-1">التفاصيل:</h4>
                         <p className="text-sm text-muted-foreground bg-muted p-3 rounded-md">
                           {report.details}
                         </p>
@@ -279,7 +279,7 @@ export default function AdminReports() {
 
                     {report.listing && (
                       <div>
-                        <h4 className="text-sm font-semibold mb-1">معلومات الإعلان:</h4>
+                        <h4 className="text-sm font-medium mb-1">معلومات الإعلان:</h4>
                         <div className="grid grid-cols-2 gap-2 text-sm bg-muted p-3 rounded-md">
                           <div>
                             <span className="text-muted-foreground">المنطقة:</span>{" "}

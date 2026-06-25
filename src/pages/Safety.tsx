@@ -74,7 +74,7 @@ export default function Safety() {
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
             <ShieldAlert className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold mb-2">نصائح الأمان</h1>
+          <h1 className="text-2xl font-medium mb-2">نصائح الأمان</h1>
           <p className="text-muted-foreground">
             احمِ نفسك وعائلتك من الاستغلال والاحتيال
           </p>
@@ -85,7 +85,7 @@ export default function Safety() {
           <div className="flex gap-3">
             <AlertTriangle className="w-6 h-6 text-destructive shrink-0 mt-0.5" />
             <div>
-              <h2 className="font-bold text-destructive mb-1">تحذير هام جداً</h2>
+              <h2 className="font-medium text-destructive mb-1">تحذير هام جداً</h2>
               <p className="text-sm">
                 للأسف، هناك من يستغل ظروف النازحين الصعبة للاحتيال عليهم. كن حذراً 
                 ولا تتردد في الإبلاغ عن أي إعلان مشبوه.
@@ -105,7 +105,7 @@ export default function Safety() {
                 <tip.icon className={`w-6 h-6 ${tip.color}`} />
               </div>
               <div>
-                <h3 className="font-bold mb-1">{tip.title}</h3>
+                <h3 className="font-medium mb-1">{tip.title}</h3>
                 <p className="text-sm text-muted-foreground">{tip.description}</p>
               </div>
             </div>
@@ -114,14 +114,14 @@ export default function Safety() {
 
         {/* علامات الخطر */}
         <div className="bg-card rounded-2xl p-5 border border-border mb-8">
-          <h2 className="font-bold mb-4 flex items-center gap-2">
+          <h2 className="font-medium mb-4 flex items-center gap-2">
             <AlertTriangle className="w-5 h-5 text-destructive" />
             علامات الخطر - كن حذراً إذا رأيت:
           </h2>
           <ul className="space-y-2">
             {redFlags.map((flag, idx) => (
               <li key={idx} className="flex items-start gap-2 text-sm">
-                <span className="w-5 h-5 rounded-full bg-destructive/10 text-destructive flex items-center justify-center shrink-0 text-xs font-bold mt-0.5">
+                <span className="w-5 h-5 rounded-full bg-destructive/10 text-destructive flex items-center justify-center shrink-0 text-xs font-medium mt-0.5">
                   {idx + 1}
                 </span>
                 <span>{flag}</span>
@@ -135,7 +135,7 @@ export default function Safety() {
           <div className="flex gap-3">
             <CheckCircle className="w-6 h-6 text-success shrink-0 mt-0.5" />
             <div>
-              <h2 className="font-bold text-success mb-1">تذكر</h2>
+              <h2 className="font-medium text-success mb-1">تذكر</h2>
               <p className="text-sm">
                 معظم الناس يريدون المساعدة بصدق. لكن الحذر واجب لحماية نفسك وعائلتك. 
                 ثق بحدسك - إذا شعرت أن شيئاً غير صحيح، فربما يكون كذلك.

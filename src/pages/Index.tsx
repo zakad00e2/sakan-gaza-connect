@@ -128,7 +128,7 @@ export default function Index() {
       {/* البانر العلوي */}
       <div className="bg-primary text-primary-foreground py-8 sm:py-12">
         <div className="container px-4 text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">سكن غزة</h1>
+          <h1 className="text-3xl sm:text-4xl font-medium mb-3">سكن غزة</h1>
           <p className="text-lg opacity-90 max-w-xl mx-auto">
        منصة لمساعدة النازحين في إيجاد سكن مناسب 
           </p>
@@ -157,7 +157,7 @@ export default function Index() {
         ) : listings.length === 0 ? (
           <div className="text-center py-20">
             <Home className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
-            <h2 className="text-xl font-bold mb-2">لا توجد إعلانات</h2>
+            <h2 className="text-xl font-medium mb-2">لا توجد إعلانات</h2>
             <p className="text-muted-foreground mb-6">
               لم نجد إعلانات تطابق بحثك. جرب تغيير الفلاتر أو أضف إعلانك.
             </p>

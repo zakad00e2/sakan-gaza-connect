@@ -42,7 +42,7 @@ export default function AuthCallback() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center space-y-4 p-8">
-          <div className="text-destructive text-lg font-semibold">{error}</div>
+          <div className="text-destructive text-lg font-medium">{error}</div>
           <button
             onClick={() => navigate("/login")}
             className="text-primary hover:underline"

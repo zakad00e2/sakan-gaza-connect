@@ -656,7 +656,7 @@ export function ListingForm({
 
       {/* معلومات التواصل */}
       <div className="bg-card rounded-xl p-4 border border-border space-y-4">
-        <h3 className="font-bold">معلومات التواصل</h3>
+        <h3 className="font-medium">معلومات التواصل</h3>
 
         <div className="space-y-2">
           <Label htmlFor="contact_name">الاسم *</Label>

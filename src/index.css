@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Thmanyah Sans";
+  src: url("/fonts/thmanyahsans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Thmanyah Sans";
+  src: url("/fonts/thmanyahsans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Thmanyah Sans";
+  src: url("/fonts/thmanyahsans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* سكن غزة - نظام التصميم العربي */
 /* ألوان دافئة تعكس الأمل والتضامن */
 
@@ -98,27 +122,31 @@
   }
 
   body {
-    @apply bg-background text-foreground font-cairo antialiased;
+    @apply bg-background text-foreground font-arabic font-light antialiased;
   }
 
   /* تحسين الخطوط العربية */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold leading-relaxed;
+    @apply font-arabic font-medium leading-relaxed;
+  }
+
+  strong, b {
+    @apply font-medium;
   }
 
   p {
-    @apply leading-relaxed;
+    @apply font-normal leading-relaxed;
   }
 }
 
 @layer components {
   /* شارة نوع الإعلان */
   .badge-rent {
-    @apply bg-rent text-rent-foreground px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-rent text-rent-foreground px-3 py-1 rounded-full text-sm font-normal;
   }
 
   .badge-sale {
-    @apply bg-sale text-sale-foreground px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-sale text-sale-foreground px-3 py-1 rounded-full text-sm font-normal;
   }
 
   /* بطاقة الإعلان */

@@ -166,13 +166,13 @@ export default function MyListings() {
         </div>
 
         {/* العنوان */}
-        <h1 className="text-2xl font-bold mb-6">إعلاناتي</h1>
+        <h1 className="text-2xl font-medium mb-6">إعلاناتي</h1>
 
         {/* قائمة الإعلانات */}
         {listings.length === 0 ? (
           <div className="text-center py-16">
             <Package className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
-            <h2 className="text-xl font-bold mb-2">لا توجد إعلانات</h2>
+            <h2 className="text-xl font-medium mb-2">لا توجد إعلانات</h2>
             <p className="text-muted-foreground mb-6">
               لم تقم بإضافة أي إعلانات بعد
             </p>

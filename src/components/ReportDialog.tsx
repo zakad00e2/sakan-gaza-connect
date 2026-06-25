@@ -87,7 +87,7 @@ export function ReportDialog({ listingId }: ReportDialogProps) {
               {REPORT_REASONS.map((r) => (
                 <div key={r} className="flex items-center gap-3">
                   <RadioGroupItem value={r} id={r} />
-                  <Label htmlFor={r} className="font-normal cursor-pointer">
+                  <Label htmlFor={r} className="font-medium cursor-pointer">
                     {r}
                   </Label>
                 </div>

@@ -101,7 +101,7 @@ export default function Signup() {
 
         <div className="bg-card rounded-2xl border border-border p-6 sm:p-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold mb-2">إنشاء حساب جديد</h1>
+            <h1 className="text-2xl font-medium mb-2">إنشاء حساب جديد</h1>
             <p className="text-muted-foreground">
               سجل للتمكن من إضافة وإدارة إعلاناتك
             </p>

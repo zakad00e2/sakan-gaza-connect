@@ -91,7 +91,7 @@ export default function Login() {
 
         <div className="bg-card rounded-2xl border border-border p-6 sm:p-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold mb-2">تسجيل الدخول</h1>
+            <h1 className="text-2xl font-medium mb-2">تسجيل الدخول</h1>
             <p className="text-muted-foreground">
               سجل دخولك لتتمكن من إضافة إعلان
             </p>
@@ -102,7 +102,7 @@ export default function Login() {
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
                 <Mail className="w-8 h-8 text-primary" />
               </div>
-              <h2 className="text-lg font-semibold">تحقق من بريدك الإلكتروني</h2>
+              <h2 className="text-lg font-medium">تحقق من بريدك الإلكتروني</h2>
               <p className="text-muted-foreground text-sm">
                 أرسلنا رابط الدخول إلى <span className="font-medium text-foreground" dir="ltr">{email}</span>
               </p>

@@ -43,7 +43,7 @@ export function Header() {
           <div className="w-10 h-10  sm:w-10 sm:h-10 rounded-lg sm:rounded-lg bg-primary flex items-center justify-center" aria-hidden="true">
             <Home className="w-6 h-6 sm:w-6 sm:h-6 text-primary-foreground" />
           </div>
-          <span className="text-lg sm:text-xl font-bold text-primary">سكن غزة</span>
+          <span className="text-lg sm:text-xl font-arabic font-medium text-primary">سكن غزة</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -56,9 +56,15 @@ export function Header() {
               {user ? (
                 <>
                   <Link to="/add">
-                    <Button size="sm" className="gap-1 btn-touch h-10">
+                    <Button size="sm" className="gap-1 btn-touch h-10 font-normal">
                       <Plus className="w-4 h-4" />
                       أضف إعلان
+                    </Button>
+                  </Link>
+                  <Link to="/safety">
+                    <Button variant="ghost" size="sm" className="gap-1 font-normal">
+                      <Shield className="w-4 h-4" />
+                      نصائح الأمان
                     </Button>
                   </Link>
                   
@@ -118,19 +124,19 @@ export function Header() {
               ) : (
                 <>
                   <Link to="/add">
-                    <Button size="sm" className="gap-1 btn-touch h-10">
+                    <Button size="sm" className="gap-1 btn-touch h-10 font-normal">
                       <Plus className="w-4 h-4" />
                       أضف إعلان
                     </Button>
                   </Link>
                      <Link to="/safety">
-            <Button variant="ghost" size="sm" className="gap-1">
+            <Button variant="ghost" size="sm" className="gap-1 font-normal">
               <Shield className="w-4 h-4" />
               نصائح الأمان
             </Button>
           </Link>
                   <Link to="/login">
-                    <Button variant="ghost" size="sm" className="gap-1 h-10">
+                    <Button variant="ghost" size="sm" className="gap-1 h-10 font-normal">
                       <User className="w-4 h-4" />
                       دخول
                     </Button>
@@ -145,7 +151,7 @@ export function Header() {
         {/* Mobile Navigation: زر إضافة إعلان بجانب زر القائمة */}
         <div className="sm:hidden flex items-center gap-2">
           <Link to="/add">
-            <Button size="sm" className="gap-1 btn-touch h-10">
+            <Button size="sm" className="gap-1 btn-touch h-10 font-normal">
               <Plus className="w-4 h-4" />
               أضف إعلان
             </Button>
@@ -163,14 +169,14 @@ export function Header() {
               
               <nav className="flex flex-col gap-2 mt-6">
                  <Link to="/add" onClick={closeMobileMenu}>
-                  <Button variant="ghost" className="w-full justify-start gap-2 h-12">
+                  <Button variant="ghost" className="w-full justify-start gap-2 h-12 font-normal">
                     <Plus className="w-5 h-5" />
                     أضف إعلان
                   </Button>
                 </Link>
 
                 <Link to="/safety" onClick={closeMobileMenu}>
-                  <Button variant="ghost" className="w-full justify-start gap-2 h-12">
+                  <Button variant="ghost" className="w-full justify-start gap-2 h-12 font-normal">
                     <Shield className="w-5 h-5" />
                     نصائح الأمان
                   </Button>
@@ -184,7 +190,7 @@ export function Header() {
                       <>
                         <div className="border-t border-border my-2" />
                         <Link to="/my" onClick={closeMobileMenu}>
-                          <Button variant="ghost" className="w-full justify-start gap-2 h-12">
+                          <Button variant="ghost" className="w-full justify-start gap-2 h-12 font-normal">
                             <List className="w-5 h-5" />
                             إعلاناتي
                           </Button>

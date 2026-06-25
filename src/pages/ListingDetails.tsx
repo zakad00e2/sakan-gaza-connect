@@ -90,7 +90,7 @@ export default function ListingDetails() {
       return (
         <>
           {listing.price.toLocaleString("ar-EG")} ₪
-          {listing.type === 'rent' && <span className="text-xs font-normal"> / شهريا</span>}
+          {listing.type === 'rent' && <span className="text-xs font-medium"> / شهريا</span>}
         </>
       );
     }
@@ -168,7 +168,7 @@ export default function ListingDetails() {
         <Header />
         <div className="container px-4 py-20 text-center">
           <AlertTriangle className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
-          <h2 className="text-xl font-bold mb-2">الإعلان غير موجود</h2>
+          <h2 className="text-xl font-medium mb-2">الإعلان غير موجود</h2>
           <p className="text-muted-foreground mb-6">
             ربما تم حذف هذا الإعلان أو أنه غير متاح حالياً
           </p>
@@ -204,7 +204,7 @@ export default function ListingDetails() {
             <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 flex items-start gap-3">
               <Clock className="w-5 h-5 text-yellow-600 dark:text-yellow-500 mt-0.5" />
               <div>
-                <h3 className="font-semibold text-yellow-900 dark:text-yellow-100">
+                <h3 className="font-medium text-yellow-900 dark:text-yellow-100">
                   إعلان قيد المراجعة
                 </h3>
                 <p className="text-sm text-yellow-800 dark:text-yellow-200 mt-1">
@@ -227,14 +227,14 @@ export default function ListingDetails() {
                   </Badge>
                 )}
               </div>
-              <h1 className="text-2xl font-bold mt-2">{listing.title}</h1>
+              <h1 className="text-2xl font-medium mt-2">{listing.title}</h1>
               <div className="flex items-center gap-1 text-muted-foreground mt-1">
                 <MapPin className="w-4 h-4" />
                 <span>{listing.area}</span>
               </div>
             </div>
             <div className="text-left">
-              <p className="text-2xl font-bold text-primary">{formatPrice()}</p>
+              <p className="text-2xl font-medium text-primary">{formatPrice()}</p>
             </div>
           </div>
 
@@ -248,7 +248,7 @@ export default function ListingDetails() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">عدد الغرف</p>
-                    <p className="font-bold">{listing.rooms}</p>
+                    <p className="font-medium">{listing.rooms}</p>
                   </div>
                 </div>
               ) : listing.property_type !== "apartment" ? (
@@ -258,7 +258,7 @@ export default function ListingDetails() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">المساحة</p>
-                    <p className="font-bold">{listing.floor_area || "—"} م²</p>
+                    <p className="font-medium">{listing.floor_area || "—"} م²</p>
                   </div>
                 </div>
               ) : null}
@@ -268,7 +268,7 @@ export default function ListingDetails() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">سعة الأشخاص</p>
-                  <p className="font-bold">{listing.capacity}</p>
+                  <p className="font-medium">{listing.capacity}</p>
                 </div>
               </div>
             </div>
@@ -276,7 +276,7 @@ export default function ListingDetails() {
 
           {/* المرافق */}
           <div className="bg-card rounded-xl p-4 border border-border">
-            <h3 className="font-bold mb-3">المرافق المتوفرة</h3>
+            <h3 className="font-medium mb-3">المرافق المتوفرة</h3>
             <div className="grid grid-cols-3 gap-3">
               {Object.entries(UTILITIES).map(([key, label]) => {
                 const status = getUtilityStatus(listing.utilities?.[key as keyof typeof listing.utilities]);
@@ -298,14 +298,14 @@ export default function ListingDetails() {
           {/* الوصف */}
           {listing.description && (
             <div className="bg-card rounded-xl p-4 border border-border">
-              <h3 className="font-bold mb-2">الوصف</h3>
+              <h3 className="font-medium mb-2">الوصف</h3>
               <p className="text-muted-foreground whitespace-pre-wrap">{listing.description}</p>
             </div>
           )}
 
           {/* معلومات التواصل */}
           <div className="bg-card rounded-xl p-4 border border-border">
-            <h3 className="font-bold mb-3">التواصل</h3>
+            <h3 className="font-medium mb-3">التواصل</h3>
             <p className="text-muted-foreground mb-4">
               صاحب الإعلان: <strong className="text-foreground">{listing.contact_name}</strong>
             </p>
