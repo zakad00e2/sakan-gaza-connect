@@ -9,6 +9,7 @@ import { Loader2, Home, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { Footer } from "@/components/Footer";
+import { MotionList, MotionSection } from "@/components/motion/MotionPrimitives";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -126,17 +127,18 @@ export default function Index() {
       <Header />
 
       {/* البانر العلوي */}
-      <div className="bg-primary text-primary-foreground py-8 sm:py-12">
+      <MotionSection className="bg-primary text-primary-foreground py-8 sm:py-12">
         <div className="container px-4 text-center">
           <h1 className="text-3xl sm:text-4xl font-medium mb-3">سكن غزة</h1>
           <p className="text-lg opacity-90 max-w-xl mx-auto">
        منصة لمساعدة النازحين في إيجاد سكن مناسب 
           </p>
         </div>
-      </div>
+      </MotionSection>
 
       {/* تنبيه الأمان */}
-      <Link to="/safety" className="block">
+      <MotionSection>
+        <Link to="/safety" className="block">
         <div className="bg-warning/10 border-b border-warning/20 py-3 hover:bg-warning/15 transition-colors">
           <div className="container px-4 flex items-center justify-center gap-2 text-sm">
             <AlertTriangle className="w-4 h-4 text-warning" />
@@ -145,17 +147,20 @@ export default function Index() {
             </span>
           </div>
         </div>
-      </Link>
+        </Link>
+      </MotionSection>
 
       <main className="container px-4 py-6">
-        <SearchFilters filters={filters} onFiltersChange={setFilters} />
+        <MotionSection>
+          <SearchFilters filters={filters} onFiltersChange={setFilters} />
+        </MotionSection>
 
         {loading ? (
-          <div className="flex items-center justify-center py-20">
+          <MotionSection className="flex items-center justify-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
-          </div>
+          </MotionSection>
         ) : listings.length === 0 ? (
-          <div className="text-center py-20">
+          <MotionSection className="text-center py-20">
             <Home className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
             <h2 className="text-xl font-medium mb-2">لا توجد إعلانات</h2>
             <p className="text-muted-foreground mb-6">
@@ -164,17 +169,17 @@ export default function Index() {
             <Link to="/add">
               <Button>أضف إعلان جديد</Button>
             </Link>
-          </div>
+          </MotionSection>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <MotionList className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {listings.map((listing) => (
                 <ListingCard key={listing.id} listing={listing} />
               ))}
-            </div>
+            </MotionList>
 
             {hasMore && (
-              <div className="text-center mt-8">
+              <MotionSection className="text-center mt-8">
                 <Button
                   variant="outline"
                   size="lg"
@@ -191,7 +196,7 @@ export default function Index() {
                     "تحميل المزيد"
                   )}
                 </Button>
-              </div>
+              </MotionSection>
             )}
           </>
         )}

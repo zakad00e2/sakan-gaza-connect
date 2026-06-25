@@ -1,4 +1,4 @@
-import { MessageCircle, Heart, Facebook, Home } from "lucide-react";
+import { MessageCircle, Heart, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -10,11 +10,18 @@ export function Footer() {
           
           {/* قسم التعريف */}
           <div className="text-right py-4 md:py-9 space-y-2">
-            <Link to="/" className="inline-flex items-center gap-2" aria-label="العودة للصفحة الرئيسية">
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center" aria-hidden="true">
-                <Home className="w-6 h-6 text-primary-foreground " />
+            <Link to="/" className="inline-flex items-center gap-1" aria-label="العودة للصفحة الرئيسية">
+              <div className="w-10 h-10 flex items-center justify-center" aria-hidden="true">
+                <img
+                  src="/logo.png"
+                  alt=""
+                  className="h-9 w-9 object-contain"
+                  width={36}
+                  height={36}
+                  aria-hidden="true"
+                />
               </div>
-              <span className="text-2xl font-medium text-primary">سكن غزة</span>
+              <span className="text-2xl font-medium text-black">سكن غزة</span>
             </Link>
             <p className="text-lg text-muted-foreground max-w-md md:max-w-none leading-relaxed">
               منصة تهدف لتسهيل البحث عن سكن للعائلات النازحة في قطاع غزة.

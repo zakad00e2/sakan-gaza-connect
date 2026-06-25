@@ -3,12 +3,21 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 describe("Header branding", () => {
+  it("uses the approved site logo image", () => {
+    const headerPath = resolve(process.cwd(), "src/components/Header.tsx");
+    const source = readFileSync(headerPath, "utf8");
+
+    expect(source).toContain('src="/logo.png"');
+    expect(source).toContain('alt=""');
+    expect(source).not.toContain('<Home className="w-6 h-6 sm:w-6 sm:h-6');
+  });
+
   it("uses the site sans font for the site name", () => {
     const headerPath = resolve(process.cwd(), "src/components/Header.tsx");
     const source = readFileSync(headerPath, "utf8");
 
     expect(source).toContain(
-      'className="text-lg sm:text-xl font-arabic font-medium text-primary"',
+      'className="text-lg sm:text-xl font-arabic font-medium text-black"',
     );
   });
 

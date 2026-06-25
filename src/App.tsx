@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { Suspense, lazy } from "react";
+import { MotionConfig } from "motion/react";
+import { RouteTransition } from "@/components/motion/RouteTransition";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -44,21 +46,27 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/listing/:id" element={<ListingDetails />} />
-              <Route path="/add" element={<AddListing />} />
-              <Route path="/safety" element={<Safety />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/auth/callback" element={<AuthCallback />} />
-              <Route path="/my" element={<MyListings />} />
-              <Route path="/my/edit/:id" element={<EditListing />} />
-              <Route path="/admin/reports" element={<AdminReports />} />
-              <Route path="/admin/pending" element={<AdminPending />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <MotionConfig reducedMotion="user">
+              <RouteTransition>
+                {(location) => (
+                  <Routes location={location}>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/listing/:id" element={<ListingDetails />} />
+                    <Route path="/add" element={<AddListing />} />
+                    <Route path="/safety" element={<Safety />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/auth/callback" element={<AuthCallback />} />
+                    <Route path="/my" element={<MyListings />} />
+                    <Route path="/my/edit/:id" element={<EditListing />} />
+                    <Route path="/admin/reports" element={<AdminReports />} />
+                    <Route path="/admin/pending" element={<AdminPending />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                )}
+              </RouteTransition>
+            </MotionConfig>
           </Suspense>
         </AuthProvider>
       </BrowserRouter>

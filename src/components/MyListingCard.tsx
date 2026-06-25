@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
+import { MotionSurface } from "@/components/motion/MotionPrimitives";
 
 interface MyListingCardProps {
   listing: Listing;
@@ -73,7 +74,8 @@ export function MyListingCard({
   const firstImage = listing.listing_images?.[0]?.url;
 
   return (
-    <div className="bg-card rounded-xl border border-border overflow-hidden">
+    <MotionSurface className="h-full">
+      <div className="bg-card rounded-xl border border-border overflow-hidden h-full">
       {/* الصورة */}
       <div className="relative aspect-[16/10] bg-muted">
         {firstImage ? (
@@ -207,6 +209,7 @@ export function MyListingCard({
           </Button>
         </div>
       </div>
-    </div>
+      </div>
+    </MotionSurface>
   );
 }

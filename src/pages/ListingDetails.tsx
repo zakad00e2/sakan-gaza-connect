@@ -98,6 +98,12 @@ export default function ListingDetails() {
   };
 
   const getUtilityStatus = (value: boolean | string) => {
+    if (value === "nearby_well") return { class: "utility-limited", text: "بئر قريب" };
+    if (value === "municipal_line") return { class: "utility-available", text: "خط بلدية" };
+    if (value === "generator") return { class: "utility-available", text: "مولد" };
+    if (value === "solar") return { class: "utility-limited", text: "طاقة شمسية" };
+    if (value === "street_network") return { class: "utility-available", text: "شبكة شارع" };
+    if (value === "telecom") return { class: "utility-limited", text: "اتصالات" };
     if (value === true || value === "available") return { class: "utility-available", text: "متوفر" };
     if (value === "limited") return { class: "utility-limited", text: "محدود" };
     return { class: "utility-unavailable", text: "غير متوفر" };

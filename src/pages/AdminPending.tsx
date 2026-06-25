@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { MotionItem, MotionList } from "@/components/motion/MotionPrimitives";
 import { Header } from "@/components/Header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -194,9 +195,10 @@ export default function AdminPending() {
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-4">
+          <MotionList className="space-y-4">
             {listings.map((listing) => (
-              <Card key={listing.id} className="overflow-hidden">
+              <MotionItem key={listing.id}>
+                <Card className="overflow-hidden">
                 <div className="flex flex-col sm:flex-row">
                   {/* الصورة */}
                   <div className="sm:w-48 shrink-0 aspect-video sm:aspect-square bg-muted">
@@ -289,9 +291,10 @@ export default function AdminPending() {
                     </div>
                   </div>
                 </div>
-              </Card>
+                </Card>
+              </MotionItem>
             ))}
-          </div>
+          </MotionList>
         )}
       </main>
 

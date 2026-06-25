@@ -83,22 +83,19 @@ export default function EditListing() {
       // تحويل بيانات المرافق
       const utilities = {
         water:
-          formData.utilities.water === "available"
-            ? true
-            : formData.utilities.water === "limited"
-            ? "limited"
+          formData.utilities.water === "nearby_well" ||
+          formData.utilities.water === "municipal_line"
+            ? formData.utilities.water
             : false,
         electricity:
-          formData.utilities.electricity === "available"
-            ? true
-            : formData.utilities.electricity === "limited"
-            ? "limited"
+          formData.utilities.electricity === "generator" ||
+          formData.utilities.electricity === "solar"
+            ? formData.utilities.electricity
             : false,
         internet:
-          formData.utilities.internet === "available"
-            ? true
-            : formData.utilities.internet === "limited"
-            ? "limited"
+          formData.utilities.internet === "street_network" ||
+          formData.utilities.internet === "telecom"
+            ? formData.utilities.internet
             : false,
       };
 

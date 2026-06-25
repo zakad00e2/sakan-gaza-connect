@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Home, Plus, Shield, User, LogOut, List, Menu, Flag, ChevronDown, ClipboardCheck, MessageCircle } from "lucide-react";
+import { Plus, Shield, User, LogOut, List, Menu, Flag, ChevronDown, ClipboardCheck, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/use-auth";
 import { useIsAdmin } from "@/hooks/use-is-admin";
+import { motion } from "motion/react";
 
 export function Header() {
   const { user, loading, signOut } = useAuth();
@@ -39,11 +40,25 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border py-1" role="banner">
       <div className="container flex items-center justify-between h-14 sm:h-16 px-4">
-        <Link to="/" className="flex items-center gap-1.5 sm:gap-2" aria-label="سكن غزة - الصفحة الرئيسية">
-          <div className="w-10 h-10  sm:w-10 sm:h-10 rounded-lg sm:rounded-lg bg-primary flex items-center justify-center" aria-hidden="true">
-            <Home className="w-6 h-6 sm:w-6 sm:h-6 text-primary-foreground" />
-          </div>
-          <span className="text-lg sm:text-xl font-arabic font-medium text-primary">سكن غزة</span>
+        <Link to="/" className="flex items-center gap-0.5 sm:gap-1" aria-label="سكن غزة - الصفحة الرئيسية">
+          <motion.div
+            data-motion-brand="true"
+            className="w-10 h-10 sm:w-10 sm:h-10 flex items-center justify-center"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            aria-hidden="true"
+          >
+            <img
+              src="/logo.png"
+              alt=""
+              className="h-9 w-9 object-contain"
+              width={36}
+              height={36}
+              aria-hidden="true"
+            />
+          </motion.div>
+          <span className="text-lg sm:text-xl font-arabic font-medium text-black">سكن غزة</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -158,7 +173,7 @@ export function Header() {
           </Link>
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="sm" className="h-10 w-10 p-0 border-primary/20 shrink-0" aria-label="فتح القائمة">
+              <Button variant="outline" size="sm" className="h-10 w-10 p-0 border-primary/20 shrink-0 active:scale-95 transition-transform duration-150" aria-label="فتح القائمة">
                 <Menu className="w-5 h-5" />
               </Button>
             </SheetTrigger>

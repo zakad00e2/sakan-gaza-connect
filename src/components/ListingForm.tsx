@@ -83,9 +83,27 @@ const defaultFormData: ListingFormData = {
 // ========================================
 
 function listingToFormData(listing: Listing): ListingFormData {
-  const getUtilityValue = (value: boolean | string): string => {
-    if (value === true || value === "available") return "available";
-    if (value === "limited") return "limited";
+  const getWaterValue = (value: boolean | string): string => {
+    if (value === "nearby_well" || value === "limited") return "nearby_well";
+    if (value === "municipal_line" || value === true || value === "available") {
+      return "municipal_line";
+    }
+    return "unavailable";
+  };
+
+  const getElectricityValue = (value: boolean | string): string => {
+    if (value === "solar" || value === "limited") return "solar";
+    if (value === "generator" || value === true || value === "available") {
+      return "generator";
+    }
+    return "unavailable";
+  };
+
+  const getInternetValue = (value: boolean | string): string => {
+    if (value === "street_network" || value === true || value === "available") {
+      return "street_network";
+    }
+    if (value === "telecom" || value === "limited") return "telecom";
     return "unavailable";
   };
 
@@ -100,9 +118,9 @@ function listingToFormData(listing: Listing): ListingFormData {
     floor_area: listing.floor_area?.toString() || "",
     capacity: listing.capacity.toString(),
     utilities: {
-      water: getUtilityValue(listing.utilities.water),
-      electricity: getUtilityValue(listing.utilities.electricity),
-      internet: getUtilityValue(listing.utilities.internet),
+      water: getWaterValue(listing.utilities.water),
+      electricity: getElectricityValue(listing.utilities.electricity),
+      internet: getInternetValue(listing.utilities.internet),
     },
     description: listing.description || "",
     contact_name: listing.contact_name,
@@ -550,8 +568,27 @@ export function ListingForm({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="available">متوفر</SelectItem>
-                    <SelectItem value="limited">محدود</SelectItem>
+                    {key === "water" ? (
+                      <>
+                        <SelectItem value="nearby_well">بئر قريب</SelectItem>
+                        <SelectItem value="municipal_line">خط بلدية</SelectItem>
+                      </>
+                    ) : key === "electricity" ? (
+                      <>
+                        <SelectItem value="generator">مولد</SelectItem>
+                        <SelectItem value="solar">طاقة شمسية</SelectItem>
+                      </>
+                    ) : key === "internet" ? (
+                      <>
+                        <SelectItem value="street_network">شبكة شارع</SelectItem>
+                        <SelectItem value="telecom">اتصالات</SelectItem>
+                      </>
+                    ) : (
+                      <>
+                        <SelectItem value="available">متوفر</SelectItem>
+                        <SelectItem value="limited">محدود</SelectItem>
+                      </>
+                    )}
                     <SelectItem value="unavailable">غير متوفر</SelectItem>
                   </SelectContent>
                 </Select>

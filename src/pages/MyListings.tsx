@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MyListingCard } from "@/components/MyListingCard";
 import { ConfirmModal } from "@/components/ConfirmModal";
+import { MotionItem, MotionList } from "@/components/motion/MotionPrimitives";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/use-auth";
@@ -184,17 +185,18 @@ export default function MyListings() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <MotionList className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {listings.map((listing) => (
-              <MyListingCard
-                key={listing.id}
-                listing={listing}
-                onEdit={handleEdit}
-                onDelete={setDeleteId}
-                onToggleStatus={handleToggleStatus}
-              />
+              <MotionItem key={listing.id}>
+                <MyListingCard
+                  listing={listing}
+                  onEdit={handleEdit}
+                  onDelete={setDeleteId}
+                  onToggleStatus={handleToggleStatus}
+                />
+              </MotionItem>
             ))}
-          </div>
+          </MotionList>
         )}
 
         {/* نافذة تأكيد الحذف */}

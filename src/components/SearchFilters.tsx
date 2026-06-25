@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AREAS, LISTING_TYPES, PROPERTY_TYPES } from "@/lib/constants";
+import { MotionCollapse } from "@/components/motion/MotionPrimitives";
 
 export interface Filters {
   search: string;
@@ -62,14 +63,17 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
           size="icon"
           className="h-10 w-14 shrink-0"
           onClick={() => setShowFilters(!showFilters)}
+          aria-label="عرض الفلاتر المتقدمة"
+          aria-expanded={showFilters}
+          aria-controls="advanced-search-filters"
         >
           <SlidersHorizontal className="w-5 h-5" />
         </Button>
       </div>
 
       {/* الفلاتر */}
-      {showFilters && (
-        <div className="mt-4 pt-4 border-t border-border animate-fade-in">
+      <MotionCollapse open={showFilters} id="advanced-search-filters">
+        <div className="mt-4 pt-4 border-t border-border">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <Select value={filters.area} onValueChange={(v) => updateFilter("area", v)}>
               <SelectTrigger className="h-12">
@@ -152,7 +156,7 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
             </Button>
           )}
         </div>
-      )}
+      </MotionCollapse>
     </div>
   );
 }
