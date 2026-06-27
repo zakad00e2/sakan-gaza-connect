@@ -45,7 +45,7 @@ export function SearchFilters({ filters, onFiltersChange }: SearchFiltersProps) 
   const hasActiveFilters = Object.entries(filters).some(([key, value]) => key !== "search" && value !== "");
 
   return (
-    <div className="bg-card rounded-2xl p-4 shadow-sm border border-border mb-6">
+    <div className="bg-card text-card-foreground rounded-2xl p-4 shadow-sm border border-border mb-6">
       {/* شريط البحث */}
       <div className="flex gap-2">
         <div className="relative flex-1">

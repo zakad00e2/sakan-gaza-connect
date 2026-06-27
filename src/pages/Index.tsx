@@ -127,12 +127,29 @@ export default function Index() {
       <Header />
 
       {/* البانر العلوي */}
-      <MotionSection className="bg-primary text-primary-foreground py-8 sm:py-12">
-        <div className="container px-4 text-center">
-          <h1 className="text-3xl sm:text-4xl font-medium mb-3">سكن غزة</h1>
-          <p className="text-lg opacity-90 max-w-xl mx-auto">
-       منصة لمساعدة النازحين في إيجاد سكن مناسب 
-          </p>
+      <MotionSection
+        className="relative isolate min-h-[420px] overflow-hidden bg-primary text-primary-foreground sm:min-h-[560px] lg:min-h-[640px]"
+        style={{
+          backgroundImage:
+            "linear-gradient(180deg, rgba(18, 24, 17, 0.36) 0%, rgba(18, 24, 17, 0.58) 52%, rgba(18, 24, 17, 0.82) 100%), url('/hero-gaza-coast.jpg')",
+          backgroundPosition: "center 38%",
+          backgroundSize: "cover",
+        }}
+      >
+        <div
+          className="flex min-h-[420px] w-full items-center justify-center px-4 py-16 text-center sm:min-h-[560px] lg:min-h-[640px]"
+        >
+          <div className="w-full max-w-3xl">
+            <div className="mx-auto max-w-2xl">
+              <h1 className="mb-4 text-4xl font-medium text-white drop-shadow-md sm:text-5xl">سكن غزة</h1>
+              <p className="mx-auto max-w-xl text-lg text-white/95 drop-shadow sm:text-xl">
+                منصة لمساعدة النازحين في إيجاد سكن مناسب
+              </p>
+            </div>
+            <div className="mt-8 text-right">
+              <SearchFilters filters={filters} onFiltersChange={setFilters} />
+            </div>
+          </div>
         </div>
       </MotionSection>
 
@@ -151,10 +168,6 @@ export default function Index() {
       </MotionSection>
 
       <main className="container px-4 py-6">
-        <MotionSection>
-          <SearchFilters filters={filters} onFiltersChange={setFilters} />
-        </MotionSection>
-
         {loading ? (
           <MotionSection className="flex items-center justify-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
