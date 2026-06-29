@@ -221,8 +221,8 @@ export default function ListingDetails() {
           )}
 
           {/* العنوان والنوع */}
-          <div className="flex items-start justify-between gap-4">
-            <div>
+          <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className={listing.type === "rent" ? "badge-rent" : "badge-sale"}>
                   {LISTING_TYPES[listing.type]}
@@ -233,13 +233,13 @@ export default function ListingDetails() {
                   </Badge>
                 )}
               </div>
-              <h1 className="text-2xl font-medium mt-2">{listing.title}</h1>
+              <h1 className="mt-2 break-words text-2xl font-medium leading-snug">{listing.title}</h1>
               <div className="flex items-center gap-1 text-muted-foreground mt-1">
                 <MapPin className="w-4 h-4" />
                 <span>{listing.area}</span>
               </div>
             </div>
-            <div className="text-left">
+            <div className="shrink-0 text-right sm:text-left">
               <p className="text-2xl font-medium text-primary">{formatPrice()}</p>
             </div>
           </div>
